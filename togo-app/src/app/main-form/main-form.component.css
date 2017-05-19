@@ -1,0 +1,129 @@
+
+
+p {
+  text-align: center;
+  font-size: 20px;
+  font-style: italic;
+  width: 100%;
+}
+
+h2 {
+  text-align: center;
+  width: 100%;
+}
+
+h3 {
+  text-align: center;
+  width: 100%;
+
+}
+
+.container-fluid {
+  margin: 0 auto;
+  width: 65%;
+  text-align: center;
+  line-height: 35px;
+}
+
+.button-primary {
+  width: 200px;
+  height: 45px;
+  font-size: 20px;
+}
+
+input, select {
+  height: 45px;
+  font-size: 20px;
+}
+
+.short-line {
+  color: #72617D;
+  background-color: #72617D;
+  height: 8px;
+  width: 350px;
+  margin: 0 auto;
+  border: 0 none;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+}
+
+.checkbox-style {
+  width: 35px;
+}
+
+.column {
+  font-size: 20px;
+}
+
+label {
+  font-size: 18px;
+}
+
+.date-style {
+  text-align: center;
+}
+
+
+
+
+/* Larger than mobile screen */
+@media (min-width: 40.0rem) {
+
+  .short-line {
+    width: 100px;
+  }
+
+  p {
+    font-size: 12px !important;
+  }
+
+  h2 {
+    font-size: 16px !important;
+  }
+
+  h3 {
+    font-size: 20px !important;
+  }
+}
+
+/* Larger than tablet screen */
+@media (min-width: 80.0rem) {
+
+  .short-line {
+    width: 150px;
+  }
+
+  p {
+    font-size: 20px !important;
+  }
+
+  h2 {
+    font-size: 24px !important;
+  }
+
+  h3 {
+    font-size: 28px !important;
+  }
+}
+
+/* Larger than desktop screen */
+@media (min-width: 120.0rem) {
+  p {
+    font-size: 22px !important;
+  }
+
+  h2 {
+    font-size: 24px !important;
+  }
+
+  h3 {
+    font-size: 30px !important;
+  }
+}
