@@ -1,0 +1,95 @@
+<div class="container-fluid">
+  <h3>
+    What's your feeling?
+  </h3>
+    <app-nav-bar></app-nav-bar>
+    <p>
+      Fill in the (not so personal) questions below and will tell you <STRONG>toGo</STRONG>!
+    </p>
+    <hr class="short-line"><br>
+  <form>
+    <fieldset>
+      <div class="row">
+        <div class="column">
+          <label for="nameField">Name</label>
+          <input type="text" placeholder="or nickname whatever rocks your boat..." id="nameField">
+        </div>
+        <div class="column">
+          <label for="cityField">Country</label>
+          <input type="text" placeholder="your base country" id="countryField">
+        </div>
+        <div class="column">
+          <label for="cityField">City</label>
+          <input type="text" placeholder="your base city" id="cityField">
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <label for="peopleField">How many people?</label>
+          <select id="peopleField">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+        </div>
+        <div class="column">
+          <label for="budgetField">What's each person's budget?</label>
+          <select id="budgetField">
+            <option value="2000">kind of stingy (up to 2,000 EUR)</option>
+            <option value="4000">saved up (up to 4,000 EUR)</option>
+            <option value="6000">got some spare cash (up to 6,000 EUR)</option>
+            <option value="8000">i'm doing well bro (up to 8,000 EUR)</option>
+            <option value="15000">high roller (up to 15,000 EUR)</option>
+          </select>
+        </div>
+        <div class="column">
+          <label for="travelField">How about travelling duration?</label>
+          <select id="travelField">
+            <option value="6">short and sweet (up to 6 hours one way)</option>
+            <option value="12">somewhere in the middle (up to 12 hours one way)</option>
+            <option value="24">wanna go the distance (up to 24 hours one way)</option>
+          </select>
+        </div>
+      </div><br>
+
+        <div class="row">
+          <div class="column">
+            <label for="startField">Start Date</label>
+            <input type="date" class="date-style" placeholder="start date" id="startField">
+          </div>
+          <div class="column">
+            <label for="endField">End Date</label>
+            <input type="date" class="date-style" placeholder="end date" id="endField">
+          </div>
+        </div>
+        <div class="row centered">
+          <label for="typeField">What's your preference?</label>
+        </div>
+        <div class="row">
+          <div class="column text-center">
+            <input type="checkbox" class="checkbox-style" name="typeField" value="Adventure"><br>Adventure
+          </div>
+          <div class="column text-center">
+            <input type="checkbox" class="checkbox-style" name="typeField" value="Bachelor"><br>Bachelor
+          </div>
+          <div class="column text-center">
+            <input type="checkbox" class="checkbox-style" name="typeField" value="Sightseeing"><br>Sightseeing
+          </div>
+          <div class="column text-center">
+            <input type="checkbox" class="checkbox-style" name="typeField" value="Sports"><br>Sports
+          </div>
+          <div class="column text-center">
+            <input type="checkbox" class="checkbox-style" name="typeField" value="Partying"><br>Partying
+          </div>
+          <div class="column text-center">
+            <input type="checkbox" class="checkbox-style" name="typeField" value="Relaxing"><br>Relaxing
+          </div>
+        </div>
+      <br>
+      <input class="button-primary" type="submit" value="Go!">
+    </fieldset>
+  </form>
+</div>
