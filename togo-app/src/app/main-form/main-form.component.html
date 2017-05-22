@@ -2,6 +2,7 @@
   <h3>
     What's your feeling?
   </h3>
+    <app-nav-bar></app-nav-bar>
     <p>
       Fill in the (not so personal) questions below and will tell you <STRONG>toGo</STRONG>!
     </p>
@@ -44,13 +45,16 @@
             <option value="15000">high roller (up to 15,000 EUR)</option>
           </select>
         </div>
+        <div class="column">
+          <label for="travelField">How about travelling duration?</label>
+          <select id="travelField">
+            <option value="6">short and sweet (up to 6 hours one way)</option>
+            <option value="12">somewhere in the middle (up to 12 hours one way)</option>
+            <option value="24">wanna go the distance (up to 24 hours one way)</option>
+          </select>
         </div>
-        <label for="travelField">How about travelling duration?</label>
-        <select id="travelField">
-          <option value="6">short and sweet (up to 6 hours one way)</option>
-          <option value="12">somewhere in the middle (up to 12 hours one way)</option>
-          <option value="24">wanna go the distance (up to 24 hours one way)</option>
-        </select>
+      </div><br>
+
         <div class="row">
           <div class="column">
             <label for="startField">Start Date</label>

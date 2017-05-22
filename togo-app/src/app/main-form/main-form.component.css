@@ -25,6 +25,7 @@ h3 {
   line-height: 35px;
 }
 
+
 .button-primary {
   width: 200px;
   height: 45px;
@@ -54,9 +55,16 @@ input, select {
   justify-content: center;
 }
 
-.checkbox-style {
-  width: 35px;
+input[type=checkbox] {
+    transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    padding: 8px;
 }
+
+/*.checkbox-style {
+  width: 50px !important;
+}*/
 
 .column {
   font-size: 20px;
