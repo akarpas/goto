@@ -1,9 +1,7 @@
-
-
 p {
   text-align: center;
   font-size: 20px;
-  font-style: italic;
+  /*font-style: italic;*/
   width: 100%;
 }
 
@@ -19,17 +17,21 @@ h3 {
 }
 
 .container-fluid {
+  padding: 20px;
   margin: 0 auto;
-  width: 65%;
+  width: 67%;
   text-align: center;
-  line-height: 35px;
+  background-color: rgba(255,255,255,0.95);
+  border-radius: 20px;
+  box-shadow: 3px 3px 6px rgb(92, 92, 92);
 }
-
 
 .button-primary {
   width: 200px;
   height: 45px;
   font-size: 20px;
+  box-shadow: 3px 3px 6px rgb(92, 92, 92);
+
 }
 
 input, select {
@@ -38,12 +40,13 @@ input, select {
 }
 
 .short-line {
-  color: #72617D;
-  background-color: #72617D;
+  color: #e6dbee;
+  background-color: #e6dbee;
   height: 8px;
-  width: 350px;
+  width: 50%;
   margin: 0 auto;
   border: 0 none;
+  border-radius: 40%;
 }
 
 .text-center {
@@ -56,9 +59,9 @@ input, select {
 }
 
 input[type=checkbox] {
-    transform: scale(1.5);
-    -ms-transform: scale(1.5);
-    -webkit-transform: scale(1.5);
+    transform: scale(2);
+    -ms-transform: scale(2);
+    -webkit-transform: scale(2);
     padding: 8px;
 }
 
@@ -76,16 +79,20 @@ label {
 
 .date-style {
   text-align: center;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid lightgray;
+  width: 100%;
 }
 
 
 
 
 /* Larger than mobile screen */
-@media (min-width: 40.0rem) {
+@media (max-width: 900px) {
 
-  .short-line {
-    width: 100px;
+  .container-fluid {
+    min-width: 90%;
   }
 
   p {
@@ -102,11 +109,8 @@ label {
 }
 
 /* Larger than tablet screen */
-@media (min-width: 80.0rem) {
+@media (max-width: 1200px) {
 
-  .short-line {
-    width: 150px;
-  }
 
   p {
     font-size: 20px !important;
@@ -122,7 +126,8 @@ label {
 }
 
 /* Larger than desktop screen */
-@media (min-width: 120.0rem) {
+@media (max-width: 1400px) {
+
   p {
     font-size: 22px !important;
   }
