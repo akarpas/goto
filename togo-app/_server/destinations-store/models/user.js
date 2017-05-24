@@ -6,11 +6,13 @@ const userSchema = new Schema({
   surname: String,
   email: String,
   password: String,
-  address: String,
   street: String,
+  streetN: String,
   postCode: String,
   city: String,
   country: String,
+  lat: String,
+  lng: String,
   places: [
     {
       city: String,
