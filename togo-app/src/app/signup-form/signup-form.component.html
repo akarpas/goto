@@ -1,0 +1,49 @@
+<div class="container-fluid container-bckg">
+  <h3>
+    Join the GoTo family
+  </h3>
+    <p>
+      Fill in the form to sign up:
+    </p>
+    <hr class="short-line"><br>
+  <form>
+    <fieldset>
+      <div class="row">
+        <div class="column">
+          <label for="nameField">Name</label>
+          <input type="text" placeholder="your first name" id="nameField" name="name" [(ngModel)]="signup.name">
+        </div>
+        <div class="column">
+          <label for="surnameField">Last Name</label>
+          <input type="text" placeholder="your last name" id="surnameField" name="surname" [(ngModel)]="signup.surname">
+        </div>
+        <div class="column">
+          <label for="emailField">Email</label>
+          <input type="email" placeholder="a valid email, also will be your username" id="emailField" name="email" [(ngModel)]="signup.email">
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+            <label for="addressField">Full Address</label>
+            <input type="text" placeholder="your full address (don't worry there's autocomplete)" id="addressField" name="address" [(ngModel)]="signup.address">
+        </div>
+      </div><br>
+        <div class="row">
+          <div class="column">
+            <label for="passField">Password</label>
+            <input type="password" placeholder="a secure password" id="passField" name="password" [(ngModel)]="signup.password">
+          </div>
+          <div class="column">
+            <label for="passConfirmField">Confirm Password</label>
+            <input type="password" placeholder="confirm your password" id="passConfirmField" name="passwordConfirm" [(ngModel)]="signup.passwordConfirm">
+          </div>
+        </div>
+
+      <br>
+      <input class="button-primary" type="submit" value="Go!" (click)="submitForm()">
+    </fieldset>
+  </form>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=KEY&libraries=places"></script>
+<script type="text/javascript" src="./javascript/autocomplete.js"></script>

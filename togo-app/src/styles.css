@@ -6,3 +6,11 @@ body {
   background-repeat: no-repeat;
   background-color: rgb(104, 148, 159);
 }
+
+/*body {
+  background-image: url('../src/assets/images/back-scroll.jpg') !important;
+  background-size: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgb(104, 148, 159);
+}*/
