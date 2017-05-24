@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-signup-form',
@@ -8,16 +8,31 @@ import { Component, OnInit } from '@angular/core';
 export class SignupFormComponent implements OnInit {
   signup: any = {
     name: '',
-    lastName: '',
+    surname: '',
     email: '',
     address: '',
+    street: '',
+    postCode: '',
+    city: '',
+    country: '',
+    lat: '',
+    lng: '',
     password: '',
-    confirmPassword: ''
+    passwordConfirm: ''
   };
 
   constructor() { }
 
   ngOnInit() {
+
+  }
+
+  updateFields() {
+    console.log("here!");
+  }
+
+  submitForm() {
+    console.log(this.signup);
   }
 
 }

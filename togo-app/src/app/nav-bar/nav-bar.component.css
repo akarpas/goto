@@ -31,3 +31,11 @@ a {
   vertical-align: middle;
   font-size: 26px;
 }
+
+@media (max-width: 900px) {
+
+  .menu-bar {
+    width: 80%;
+  }
+
+}
