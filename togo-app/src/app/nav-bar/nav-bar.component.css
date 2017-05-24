@@ -3,8 +3,10 @@
   display: flex;
   border-radius: 30px;
   background-color: #B89DC9;
-  width: 80%;
+  width: 40%;
   margin: 0 auto;
+  box-shadow: 2px 2px 5px rgb(92, 92, 92);
+
 }
 
 .menu-left {
@@ -23,4 +25,9 @@
   padding-right: 20px;
   margin-right: 0px;
   text-align: right;
+}
+
+a {
+  vertical-align: middle;
+  font-size: 26px;
 }

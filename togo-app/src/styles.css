@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  background-image: url('../src/assets/images/original-4.jpg') !important;
+  background-position: -100px -325px;
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-color: rgb(104, 148, 159);
+}
+
+/*body {
+  background-image: url('../src/assets/images/back-scroll.jpg') !important;
+  background-size: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgb(104, 148, 159);
+}*/

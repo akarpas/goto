@@ -1,7 +1,9 @@
 
 
-h1 {
-  color: #72617D;
+h1.custom {
+  color: #B89DC9;
+  font-size: 50px;
   text-align: center;
   line-height: 65px;
+  text-shadow: 2px 2px 3px #656565;
 }

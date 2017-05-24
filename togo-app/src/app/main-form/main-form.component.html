@@ -1,10 +1,9 @@
-<div class="container-fluid">
+<div class="container-fluid container-bckg">
   <h3>
     What's your feeling?
   </h3>
-    <app-nav-bar></app-nav-bar>
     <p>
-      Fill in the (not so personal) questions below and will tell you <STRONG>toGo</STRONG>!
+      Fill in the (not so personal) questions below and will tell you <STRONG>goTo</STRONG>!
     </p>
     <hr class="short-line"><br>
   <form>
@@ -12,32 +11,32 @@
       <div class="row">
         <div class="column">
           <label for="nameField">Name</label>
-          <input type="text" placeholder="or nickname whatever rocks your boat..." id="nameField">
+          <input type="text" placeholder="or nickname, whatever rocks your boat..." id="nameField" name="name" [(ngModel)]="newSearch.name">
         </div>
         <div class="column">
           <label for="cityField">Country</label>
-          <input type="text" placeholder="your base country" id="countryField">
+          <input type="text" placeholder="your base country" id="countryField" name="country" [(ngModel)]="newSearch.country">
         </div>
         <div class="column">
           <label for="cityField">City</label>
-          <input type="text" placeholder="your base city" id="cityField">
+          <input type="text" placeholder="your base city" id="cityField" name="city" [(ngModel)]="newSearch.city">
         </div>
       </div>
       <div class="row">
         <div class="column">
           <label for="peopleField">How many people?</label>
-          <select id="peopleField">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
+          <select id="peopleField" name="people" [(ngModel)]="newSearch.people">
+            <option value="1">loner and loving it (1)</option>
+            <option value="2">just two (cough cough) (2)</option>
+            <option value="3">the musketeers (3)</option>
+            <option value="4">getting crowded (4)</option>
+            <option value="5">no pair events (5)</option>
+            <option value="6">just too many (6)</option>
           </select>
         </div>
         <div class="column">
           <label for="budgetField">What's each person's budget?</label>
-          <select id="budgetField">
+          <select id="budgetField" name="budget" [(ngModel)]="newSearch.budget">
             <option value="2000">kind of stingy (up to 2,000 EUR)</option>
             <option value="4000">saved up (up to 4,000 EUR)</option>
             <option value="6000">got some spare cash (up to 6,000 EUR)</option>
@@ -47,7 +46,7 @@
         </div>
         <div class="column">
           <label for="travelField">How about travelling duration?</label>
-          <select id="travelField">
+          <select id="travelField" name="duration" [(ngModel)]="newSearch.duration">
             <option value="6">short and sweet (up to 6 hours one way)</option>
             <option value="12">somewhere in the middle (up to 12 hours one way)</option>
             <option value="24">wanna go the distance (up to 24 hours one way)</option>
@@ -58,38 +57,47 @@
         <div class="row">
           <div class="column">
             <label for="startField">Start Date</label>
-            <input type="date" class="date-style" placeholder="start date" id="startField">
+            <input type="date" class="date-style" placeholder="start date" id="startField" name="startDate" [(ngModel)]="newSearch.startDate">
           </div>
           <div class="column">
             <label for="endField">End Date</label>
-            <input type="date" class="date-style" placeholder="end date" id="endField">
+            <input type="date" class="date-style" placeholder="end date" id="endField" name="endDate" [(ngModel)]="newSearch.endDate">
           </div>
         </div>
         <div class="row centered">
           <label for="typeField">What's your preference?</label>
         </div>
         <div class="row">
-          <div class="column text-center">
-            <input type="checkbox" class="checkbox-style" name="typeField" value="Adventure"><br>Adventure
+          <div class="column">
+
           </div>
           <div class="column text-center">
-            <input type="checkbox" class="checkbox-style" name="typeField" value="Bachelor"><br>Bachelor
+            <input type="radio" class="checkbox-style" name="typeField" value="Adventure" (change)="onSelectionChange('Adventure')"><br>Adventure
           </div>
           <div class="column text-center">
-            <input type="checkbox" class="checkbox-style" name="typeField" value="Sightseeing"><br>Sightseeing
+            <input type="radio" class="checkbox-style" name="typeField" value="Bachelor" (change)="onSelectionChange('Bachelor')"><br>Bachelor
           </div>
           <div class="column text-center">
-            <input type="checkbox" class="checkbox-style" name="typeField" value="Sports"><br>Sports
+            <input type="radio" class="checkbox-style" name="typeField" value="Sightseeing" (change)="onSelectionChange('Sightseeing')"><br>Sightseeing
           </div>
           <div class="column text-center">
-            <input type="checkbox" class="checkbox-style" name="typeField" value="Partying"><br>Partying
+            <input type="radio" class="checkbox-style" name="typeField" value="Sports" (change)="onSelectionChange('Sports')"><br>Sports
           </div>
           <div class="column text-center">
-            <input type="checkbox" class="checkbox-style" name="typeField" value="Relaxing"><br>Relaxing
+            <input type="radio" class="checkbox-style" name="typeField" value="Partying" (change)="onSelectionChange('Partying')"><br>Partying
+          </div>
+          <div class="column text-center">
+            <input type="radio" class="checkbox-style" name="typeField" value="Relaxing" (change)="onSelectionChange('Relaxing')"><br>Relaxing
+          </div>
+          <div class="column text-center">
+            <input type="radio" class="checkbox-style" name="typeField" value="Family" (change)="onSelectionChange('Family')"><br>Family
+          </div>
+          <div class="column">
+
           </div>
         </div>
       <br>
-      <input class="button-primary" type="submit" value="Go!">
+      <input class="button-primary" type="submit" value="Go!" (click)="submitForm()">
     </fieldset>
   </form>
 </div>
