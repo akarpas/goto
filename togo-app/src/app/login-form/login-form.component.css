@@ -1,0 +1,146 @@
+p {
+  text-align: center;
+  font-size: 20px;
+  /*font-style: italic;*/
+  width: 100%;
+}
+
+h2 {
+  text-align: center;
+  width: 100%;
+}
+
+h3 {
+  text-align: center;
+  width: 100%;
+
+}
+
+.container-fluid {
+  padding: 20px;
+  margin: 0 auto;
+  width: 67%;
+  text-align: center;
+  background-color: rgba(255,255,255,0.95);
+  border-radius: 20px;
+  box-shadow: 3px 3px 6px rgb(92, 92, 92);
+}
+
+.button-primary {
+  width: 200px;
+  height: 45px;
+  font-size: 20px;
+  box-shadow: 3px 3px 6px rgb(92, 92, 92);
+
+}
+
+input, select {
+  height: 45px;
+  font-size: 20px;
+}
+
+.short-line {
+  color: #e6dbee;
+  background-color: #e6dbee;
+  height: 8px;
+  width: 50%;
+  margin: 0 auto;
+  border: 0 none;
+  border-radius: 40%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+}
+
+input[type=radio] {
+    transform: scale(2);
+    -ms-transform: scale(2);
+    -webkit-transform: scale(2);
+    padding: 8px;
+}
+
+/*.checkbox-style {
+  width: 50px !important;
+}*/
+
+.column {
+  font-size: 20px;
+}
+
+label {
+  font-size: 18px;
+}
+
+.date-style {
+  text-align: center;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid lightgray;
+  width: 100%;
+}
+
+.row-login {
+  margin: 0 auto;
+  width: 60%;
+}
+
+
+
+/* Larger than mobile screen */
+@media (max-width: 900px) {
+
+  .container-fluid {
+    min-width: 90%;
+  }
+
+  p {
+    font-size: 12px !important;
+  }
+
+  h2 {
+    font-size: 16px !important;
+  }
+
+  h3 {
+    font-size: 20px !important;
+  }
+}
+
+/* Larger than tablet screen */
+@media (max-width: 1200px) {
+
+
+  p {
+    font-size: 20px !important;
+  }
+
+  h2 {
+    font-size: 24px !important;
+  }
+
+  h3 {
+    font-size: 28px !important;
+  }
+}
+
+/* Larger than desktop screen */
+@media (max-width: 1400px) {
+
+  p {
+    font-size: 22px !important;
+  }
+
+  h2 {
+    font-size: 24px !important;
+  }
+
+  h3 {
+    font-size: 30px !important;
+  }
+}
