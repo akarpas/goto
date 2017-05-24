@@ -1,5 +1,4 @@
 
-
 <div class="container-fluid container-bckg">
   <h3>
     Join the GoTo family
@@ -13,31 +12,31 @@
       <div class="row">
         <div class="column">
           <label for="nameField">Name</label>
-          <input type="text" placeholder="your first name" id="nameField" name="name" [(ngModel)]="signup.name">
+          <input type="text" required placeholder="your first name" id="nameField" name="name" [(ngModel)]="signup.name">
         </div>
         <div class="column">
           <label for="surnameField">Last Name</label>
-          <input type="text" placeholder="your last name" id="surnameField" name="surname" [(ngModel)]="signup.surname">
+          <input type="text" required placeholder="your last name" id="surnameField" name="surname" [(ngModel)]="signup.surname">
         </div>
         <div class="column">
           <label for="emailField">Email</label>
-          <input type="email" placeholder="a valid email, also will be your username" id="emailField" name="email" [(ngModel)]="signup.email">
+          <input type="email" required placeholder="a valid email, also will be your username" id="emailField" name="email" [(ngModel)]="signup.email">
         </div>
       </div>
       <div class="row">
         <div class="column">
             <label for="address">Full Address</label>
-            <input type="text" placeholder="your full address (don't worry there's autocomplete)" name="address" [(ngModel)]="signup.address">
+            <input type="text" required placeholder="your full address (don't worry there's autocomplete)" name="address" #search [formControl]="searchControl">
         </div>
       </div><br>
         <div class="row">
           <div class="column">
             <label for="passField">Password</label>
-            <input type="password" placeholder="a secure password" id="passField" name="password" [(ngModel)]="signup.password">
+            <input type="password" required placeholder="a secure password" id="passField" name="password" [(ngModel)]="signup.password">
           </div>
           <div class="column">
             <label for="passConfirmField">Confirm Password</label>
-            <input type="password" placeholder="confirm your password" id="passConfirmField" name="passwordConfirm" [(ngModel)]="signup.passwordConfirm">
+            <input type="password" required placeholder="confirm your password" id="passConfirmField" name="passwordConfirm" [(ngModel)]="signup.passwordConfirm">
           </div>
         </div>
 
