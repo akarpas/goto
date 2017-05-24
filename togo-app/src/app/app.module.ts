@@ -13,6 +13,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ResultsComponent } from './results/results.component';
 import { FooterComponent } from './footer/footer.component';
 import { AgmCoreModule } from "angular2-google-maps/core";
+import { SessionService } from "./session.service";
+import { LoginFormComponent } from './login-form/login-form.component';
 
 
 const routes: Routes = [
@@ -20,7 +22,9 @@ const routes: Routes = [
   {path: 'home', component: MainFormComponent},
   {path: 'signup', component: SignupFormComponent},
   {path: 'dashboard', component: DashboardComponent},
-  {path: 'results', component: ResultsComponent}
+  {path: 'results', component: ResultsComponent},
+  {path: 'login', component: LoginFormComponent}
+
 ];
 
 @NgModule({
@@ -31,7 +35,8 @@ const routes: Routes = [
     SignupFormComponent,
     DashboardComponent,
     ResultsComponent,
-    FooterComponent
+    FooterComponent,
+    LoginFormComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -44,7 +49,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [SessionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

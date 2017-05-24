@@ -1,0 +1,29 @@
+
+<div class="container-fluid">
+  <h3>
+    GoTo Now!
+  </h3>
+    <p>
+    </p>
+    <hr class="short-line"><br>
+  <form>
+    <fieldset>
+      <div class="row row-login">
+        <label for="">Email: </label><br>
+      </div><br>
+      <div class="row row-login">
+        <input type="text" required placeholder="your email" id="email" name="email" [(ngModel)]="formInfo.email">
+      </div><br>
+      <div class="row row-login">
+        <label for="">Password: </label><br>
+      </div><br>
+      <div class="row row-login">
+        <input type="password" required placeholder="your secure password" id="password" name="password" [(ngModel)]="formInfo.password">
+      </div>
+      <br>
+      <input class="button-primary" type="submit" value="Login" (click)="login()">
+    </fieldset>
+  </form>
+  <p class="error"> {{ error }} </p>
+
+</div>
