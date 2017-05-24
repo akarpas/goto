@@ -46,10 +46,12 @@ function init() {
     location.lat = place.geometry.location.lat();
     location.lng = place.geometry.location.lng();
 
-    $( "#city" ).val(location.city);
-    $( "#street" ).val(location.street);
-    $( "#postCode" ).val(location.postalcode);
-    $( "#country" ).val(location.country);
+    console.log(location.city, location.street);
+
+    $("#city").val(location.city);
+    $("#street").val(location.street);
+    $("#postCode").val(location.postalcode);
+    $("#country").val(location.country);
     $("#lat").val(location.lat);
     $("#lng").val(location.lng);
     if(!location.hasOwnProperty("street")) {

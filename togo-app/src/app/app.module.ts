@@ -8,11 +8,16 @@ import { MainFormComponent } from './main-form/main-form.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { Routes, RouterModule } from '@angular/router';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ResultsComponent } from './results/results.component';
+import { FooterComponent } from './footer/footer.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: MainFormComponent},
-  {path: 'signup', component: SignupFormComponent}
+  {path: 'signup', component: SignupFormComponent},
+  {path: 'dashboard', component: DashboardComponent},
+  {path: 'results', component: ResultsComponent}
 ];
 
 @NgModule({
@@ -20,7 +25,10 @@ const routes: Routes = [
     AppComponent,
     MainFormComponent,
     NavBarComponent,
-    SignupFormComponent
+    SignupFormComponent,
+    DashboardComponent,
+    ResultsComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
