@@ -21,6 +21,12 @@ export class SignupFormComponent implements OnInit {
     lat: '',
     lng: '',
     password: '',
+    places: [{
+      city: '',
+      country: '',
+      lat: '',
+      lng: ''
+    }]
   };
   passwordConfirm: '';
   public latitude: number;
@@ -64,6 +70,7 @@ export class SignupFormComponent implements OnInit {
             }
             if (place.address_components[i].types[0] === 'country') {
             this.signupInfo.country = place.address_components[i].long_name;
+            this.signupInfo.places[0].country = place.address_components[i].long_name;
             }
             if (place.address_components[i].types[0] === 'route') {
             this.signupInfo.street = place.address_components[i].long_name;
@@ -73,13 +80,17 @@ export class SignupFormComponent implements OnInit {
             }
             if (place.address_components[i].types[0] === 'locality') {
             this.signupInfo.city = place.address_components[i].long_name;
+            this.signupInfo.places[0].city = place.address_components[i].long_name;
             }
           }
 
           //set latitude, longitude
           this.signupInfo.lat = place.geometry.location.lat();
           this.signupInfo.lng = place.geometry.location.lng();
+          this.signupInfo.places[0].lat = place.geometry.location.lat();
+          this.signupInfo.places[0].lng = place.geometry.location.lng();
           console.log(place);
+          console.log("PLACES: "+ JSON.stringify(this.signupInfo.places));
         });
       });
     });
@@ -87,6 +98,7 @@ export class SignupFormComponent implements OnInit {
 
 
   signup() {
+    console.log("the saved signup info: " + this.signupInfo);
     this.session.signup(this.signupInfo)
       .subscribe(
         (user) => this.user = user,

@@ -18,6 +18,7 @@ const userSchema = new Schema({
   places: [
     {
       city: String,
+      country: String,
       lat: String,
       lng: String
     }
