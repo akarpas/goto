@@ -131,7 +131,9 @@ label {
   width: 100%;
 }
 
-
+.delete-icon {
+  height: 18px;
+}
 
 
 /* Larger than mobile screen */

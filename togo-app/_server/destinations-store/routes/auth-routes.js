@@ -18,6 +18,7 @@ authRoutes.post('/signup', (req, res, next) => {
   const country = req.body.country;
   const lat = req.body.lat;
   const lng = req.body.lng;
+  const places = req.body.places;
 
   if (!username || !password) {
     res.status(400).json({ message: 'Provide username and password' });
@@ -44,7 +45,8 @@ authRoutes.post('/signup', (req, res, next) => {
       city: city,
       country: country,
       lat: lat,
-      lng: lng
+      lng: lng,
+      places: places
     });
 
     theUser.save((err) => {

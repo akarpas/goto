@@ -5,7 +5,7 @@
     <hr class="short-line"><br>
     <div class="row user-details">
       <ul>
-        <li><strong>Name: </strong> {{user.name}} &nbsp {{user.surname}}</li>
+        <li><strong>Name: </strong> {{user.name}} {{user.surname}}</li>
         <li><strong>Email: </strong> {{user.email}}</li>
         <li><strong>Address: </strong> {{user.street}} {{user.streetN}}</li>
         <li><strong>Post Code: </strong> {{user.postCode}}</li>
@@ -25,13 +25,21 @@
       </div>
     </div>
     <div class="column">
-      <p><u>Remove a place: </u></p>
+      <p><u>Visited: </u></p>
       <div class="cell-list">
         <br>
-
         <ul>
-          <li> Barcelona | <a href="#"><strong>Remove</strong></a> </li>
-          <li> New York | <a href="#"><strong>Remove</strong></a> </li>
+          <li *ngFor="let place of user.places"> {{place.city}}, {{place.country}} - <a href="#"><strong><img class="delete-icon" src="../assets/images/delete.svg" alt=""></strong></a></li>
+        </ul>
+        <br><br>
+      </div>
+    </div>
+    <div class="column">
+      <p><u>Wish List: </u></p>
+      <div class="cell-list">
+        <br>
+        <ul>
+
         </ul>
         <br><br>
       </div>
