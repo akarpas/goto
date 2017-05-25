@@ -14,32 +14,39 @@ export class SessionService {
   }
 
   signup(user) {
-    return this.http.post(`/signup`, user)
+    console.log("this is user: ",user)
+    return this.http.post('http://localhost:3000/signup', user)
       .map(res => res.json())
       .catch(this.handleError);
   }
 
   login(user) {
-    return this.http.post(`/login`, user)
+    console.log("user from login: " + JSON.stringify(user));
+    return this.http.post('http://localhost:3000/login', user)
       .map(res => res.json())
       .catch(this.handleError);
   }
 
   logout() {
-    return this.http.post(`/logout`, {})
+    return this.http.post(`http://localhost:3000/logout`, {})
       .map(res => res.json())
       .catch(this.handleError);
   }
 
   isLoggedIn() {
-    return this.http.get(`/loggedin`)
+    return this.http.get(`http://localhost:3000/loggedin`)
       .map(res => res.json())
       .catch(this.handleError);
   }
 
   getPrivateData() {
-    return this.http.get(`/private`)
+    return this.http.get(`http://localhost:3000/private`)
       .map(res => res.json())
       .catch(this.handleError);
+  }
+
+  getUser(id) {
+    return this.http.get(`http://localhost:3000/api/users/${id}`)
+      .map(res => res.json())
   }
 }

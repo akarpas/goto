@@ -1,3 +1,5 @@
+/*jshint esversion: 6*/
+
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -14,6 +16,13 @@ const userSchema = new Schema({
   lat: String,
   lng: String,
   places: [
+    {
+      city: String,
+      lat: String,
+      lng: String
+    }
+  ],
+  wishlist: [
     {
       city: String,
       lat: String,

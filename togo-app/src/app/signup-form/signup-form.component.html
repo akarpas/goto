@@ -12,15 +12,15 @@
       <div class="row">
         <div class="column">
           <label for="nameField">Name</label>
-          <input type="text" required placeholder="your first name" id="nameField" name="name" [(ngModel)]="signup.name">
+          <input type="text" required placeholder="your first name" id="nameField" name="name" [(ngModel)]="signupInfo.name">
         </div>
         <div class="column">
           <label for="surnameField">Last Name</label>
-          <input type="text" required placeholder="your last name" id="surnameField" name="surname" [(ngModel)]="signup.surname">
+          <input type="text" required placeholder="your last name" id="surnameField" name="surname" [(ngModel)]="signupInfo.surname">
         </div>
         <div class="column">
           <label for="emailField">Email</label>
-          <input type="email" required placeholder="a valid email, also will be your username" id="emailField" name="email" [(ngModel)]="signup.email">
+          <input type="email" required placeholder="a valid email, also will be your username" id="emailField" name="email" [(ngModel)]="signupInfo.email">
         </div>
       </div>
       <div class="row">
@@ -32,16 +32,16 @@
         <div class="row">
           <div class="column">
             <label for="passField">Password</label>
-            <input type="password" required placeholder="a secure password" id="passField" name="password" [(ngModel)]="signup.password">
+            <input type="password" required placeholder="a secure password" id="passField" name="password" [(ngModel)]="signupInfo.password">
           </div>
           <div class="column">
             <label for="passConfirmField">Confirm Password</label>
-            <input type="password" required placeholder="confirm your password" id="passConfirmField" name="passwordConfirm" [(ngModel)]="signup.passwordConfirm">
+            <input type="password" required placeholder="confirm your password" id="passConfirmField" name="passwordConfirm" [(ngModel)]="passwordConfirm">
           </div>
         </div>
 
       <br>
-      <input class="button-primary" type="submit" value="Go!" (click)="submitForm()">
+      <input class="button-primary" type="submit" value="Go!" (click)="signup()">
     </fieldset>
 
   </form>

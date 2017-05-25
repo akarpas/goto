@@ -1,3 +1,5 @@
+/*jshint esversion: 6*/
+
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -27,9 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/angular-auth');
-const passportSetup = require('./config/passport');
-passportSetup(passport);
+mongoose.connect('mongodb://localhost/goto-database');
 
 app.use(session({
   secret: 'angular auth passport secret shh',
@@ -37,6 +37,10 @@ app.use(session({
   saveUninitialized: true,
   cookie : { httpOnly: true, maxAge: 2419200000 }
 }));
+
+const passportConfig = require('./configs/passport');
+passportConfig(passport);
+
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -46,7 +50,7 @@ app.use('/api', gotoApi);
 
 app.use((req, res, next) => {
   res.sendfile(__dirname + '/public/index.html');
-}); 
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

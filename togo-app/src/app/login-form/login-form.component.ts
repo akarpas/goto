@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from "../session.service";
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -10,32 +11,45 @@ import { SessionService } from "../session.service";
 export class LoginFormComponent implements OnInit {
 
   formInfo = {
-    username: '',
+    email: '',
     password: ''
   };
 
   user: any;
   error: string;
 
-  constructor(private session: SessionService) { }
+  constructor(
+    private session: SessionService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
-
+    this.session.isLoggedIn()
+      .subscribe(
+        (user) => this.successCb(user)
+      );
   }
 
   login() {
+    console.log(this.formInfo);
     this.session.login(this.formInfo)
       .subscribe(
-        (user) => this.user = user,
-        (err) => this.error = err
-      );
+    (user) => {
+      this.user = user
+      console.log("HERE: "+ user._id);
+      this.router.navigate(['/dashboard/',user._id]);
+    },
+      (err) => this.error = err
+    );
   }
 
-  signup() {
-    this.session.signup(this.formInfo)
-      .subscribe(
-        (user) => this.user = user,
-        (err) => this.error = err
-      );
+  errorCb(err) {
+    this.error = err;
+    this.user = null;
+  }
+
+  successCb(user) {
+    this.user = user;
+    this.error = null;
   }
 }

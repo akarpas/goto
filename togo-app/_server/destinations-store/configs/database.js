@@ -1,7 +1,9 @@
+/*jshint esversion: 6*/
+
 const mongoose = require("mongoose");
 const dbName = 'goto-database';
 
-mongoose.connect(`mongodb://localhost/${dbName}`);
+mongoose.createConnection(`mongodb://localhost/${dbName}`);
 
 const db = mongoose.connection;
 

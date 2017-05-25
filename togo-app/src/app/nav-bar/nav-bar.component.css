@@ -1,9 +1,9 @@
 
 .menu-bar {
   display: flex;
-  border-radius: 30px;
+  border-radius: 15px;
   background-color: #B89DC9;
-  width: 40%;
+  width: 67%;
   margin: 0 auto;
   box-shadow: 2px 2px 5px rgb(92, 92, 92);
 
@@ -27,6 +27,21 @@
   text-align: right;
 }
 
+.register-style {
+  width: auto;
+  font-size: 22px;
+}
+
+.login-style {
+  border-right: 2px solid rgb(77, 39, 88);
+  min-width: auto;
+}
+
+span {
+  font-size: 30px !important;
+  font-weight: 400 !important;
+}
+
 a {
   vertical-align: middle;
   font-size: 26px;
@@ -35,7 +50,7 @@ a {
 @media (max-width: 900px) {
 
   .menu-bar {
-    width: 80%;
+    width: 90%;
   }
 
 }
