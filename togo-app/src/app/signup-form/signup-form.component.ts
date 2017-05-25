@@ -1,6 +1,7 @@
 import { NgZone, ElementRef, Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { FormControl } from "@angular/forms";
 import { MapsAPILoader } from 'angular2-google-maps/core';
+import { SessionService } from "../session.service";
 
 @Component({
   selector: 'app-signup-form',
@@ -8,7 +9,7 @@ import { MapsAPILoader } from 'angular2-google-maps/core';
   styleUrls: ['./signup-form.component.css']
 })
 export class SignupFormComponent implements OnInit {
-  signup: any = {
+  signupInfo: any = {
     name: '',
     surname: '',
     email: '',
@@ -20,8 +21,8 @@ export class SignupFormComponent implements OnInit {
     lat: '',
     lng: '',
     password: '',
-    passwordConfirm: ''
   };
+  passwordConfirm: '';
   public latitude: number;
   public longitude: number;
   public searchControl: FormControl;
@@ -30,7 +31,11 @@ export class SignupFormComponent implements OnInit {
   @ViewChild("search")
   public searchElementRef: ElementRef;
 
+  user: any;
+  error: string;
+
   constructor(
+    private session: SessionService,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone
   ) { }
@@ -55,37 +60,38 @@ export class SignupFormComponent implements OnInit {
           // Location details
           for (let i = 0; i < place.address_components.length; i++) {
             if (place.address_components[i].types[0] === 'postal_code') {
-            this.signup.postCode = place.address_components[i].long_name;
+            this.signupInfo.postCode = place.address_components[i].long_name;
             }
             if (place.address_components[i].types[0] === 'country') {
-            this.signup.country = place.address_components[i].long_name;
+            this.signupInfo.country = place.address_components[i].long_name;
             }
             if (place.address_components[i].types[0] === 'route') {
-            this.signup.street = place.address_components[i].long_name;
+            this.signupInfo.street = place.address_components[i].long_name;
             }
             if (place.address_components[i].types[0] === 'street_number') {
-            this.signup.streetN = place.address_components[i].long_name;
+            this.signupInfo.streetN = place.address_components[i].long_name;
             }
             if (place.address_components[i].types[0] === 'locality') {
-            this.signup.city = place.address_components[i].long_name;
+            this.signupInfo.city = place.address_components[i].long_name;
             }
           }
 
           //set latitude, longitude
-          this.signup.lat = place.geometry.location.lat();
-          this.signup.lng = place.geometry.location.lng();
+          this.signupInfo.lat = place.geometry.location.lat();
+          this.signupInfo.lng = place.geometry.location.lng();
           console.log(place);
         });
       });
     });
   }
 
-  updateFields() {
-    console.log("here!");
-  }
 
-  submitForm() {
-    console.log(this.signup);
+  signup() {
+    this.session.signup(this.signupInfo)
+      .subscribe(
+        (user) => this.user = user,
+        (err) => this.error = err
+      );
   }
 
 }

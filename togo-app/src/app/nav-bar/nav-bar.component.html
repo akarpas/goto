@@ -3,8 +3,19 @@
     <strong><a [routerLink]="['home']">Go/To</a></strong>
   </div>
   <div class="menu-right">
-    <a href="#"><strong><a [routerLink]="['login']">Login</a></strong></a>
-    <span>/</span>
-    <a href="#"><strong><a [routerLink]="['signup']">Register</a></strong></a>
+    <div class="row">
+      <div *ngIf="!user" class="column login-style">
+        <a href="#"><strong><a [routerLink]="['login']">Login</a></strong></a>
+      </div>
+      <div *ngIf="!user" class="column register-style">
+        <a href="#"><strong><a [routerLink]="['signup']">Register</a></strong></a>
+      </div>
+      <div *ngIf="user" class="column login-style">
+        <a href="#"><strong><a [routerLink]="['dashboard']">Dashboard</a></strong></a>
+      </div>
+      <div *ngIf="user" class="column register-style">
+        <a href=""><strong><a (click)="logout()">Logout</a></strong></a>
+      </div>
+    </div>
   </div>
 </div>

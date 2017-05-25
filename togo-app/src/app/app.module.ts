@@ -21,7 +21,7 @@ const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: MainFormComponent},
   {path: 'signup', component: SignupFormComponent},
-  {path: 'dashboard', component: DashboardComponent},
+  {path: 'dashboard/:id', component: DashboardComponent},
   {path: 'results', component: ResultsComponent},
   {path: 'login', component: LoginFormComponent}
 

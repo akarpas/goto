@@ -1,11 +1,33 @@
+/*jshint esversion: 6*/
+
+const passport = require("passport");
 const LocalStrategy = require('passport-local').Strategy;
 const User          = require('../models/user');
 const bcrypt        = require('bcrypt');
 
-module.exports = function (passport) {
+const passportConfig = function (passport) {
 
-  passport.use(new LocalStrategy((username, password, next) => {
-    User.findOne({ username }, (err, foundUser) => {
+  passport.serializeUser((loggedInUser, cb) => {
+    cb(null, loggedInUser._id);
+  });
+
+  passport.deserializeUser((userIdFromSession, cb) => {
+    User.findById(userIdFromSession, (err, userDocument) => {
+      if (err) {
+        cb(err);
+        return;
+      }
+
+      cb(null, userDocument);
+    });
+  });
+
+  passport.use(new LocalStrategy({
+      passReqToCallback: true,
+      usernameField: 'email',
+      passwordField: 'password'
+  }, (req, email, password, next) => {
+    User.findOne({ email }, (err, foundUser) => {
       if (err) {
         next(err);
         return;
@@ -24,19 +46,6 @@ module.exports = function (passport) {
       next(null, foundUser);
     });
   }));
-
-  passport.serializeUser((loggedInUser, cb) => {
-    cb(null, loggedInUser._id);
-  });
-
-  passport.deserializeUser((userIdFromSession, cb) => {
-    User.findById(userIdFromSession, (err, userDocument) => {
-      if (err) {
-        cb(err);
-        return;
-      }
-
-      cb(null, userDocument);
-    });
-  });
 };
+
+module.exports = passportConfig;
