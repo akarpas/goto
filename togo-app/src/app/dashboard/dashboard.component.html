@@ -20,8 +20,8 @@
       <p><u>Add a place you visited: </u></p>
       <div class="cell-add">
         <br>
-        <input class="addcity" type="text" name="city" value="" placeholder="insert city name"><br><br>
-        <button type="button" class="button-primary" name="button"><strong>Add</strong></button><br><br>
+        <input class="addcity" type="text" name="city" value="" placeholder="insert city name" #search [formControl]="searchControl"><br><br>
+        <button type="button" class="button-primary" name="button" (click)="addPlace()"><strong>Add</strong></button><br><br>
       </div>
     </div>
     <div class="column">
@@ -48,6 +48,11 @@
  <h3> Your Pins </h3>
  <hr class="short-line"><br>
  <div class="row">
-   <img id="sample" src="../assets/images/sample.png" alt="">
- </div>
+   <div class="map-container">
+       <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+
+       <sebm-google-map-marker *ngFor="let place of user.places" [latitude]="place.lat" [longitude]="place.lng" [iconUrl]="'./assets/images/pinSmaller.png'"></sebm-google-map-marker>
+     </sebm-google-map>
+   </div>
+
 </div>

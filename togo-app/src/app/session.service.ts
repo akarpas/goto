@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
@@ -48,5 +48,17 @@ export class SessionService {
   getUser(id) {
     return this.http.get(`http://localhost:3000/api/users/${id}`)
       .map(res => res.json())
+  }
+
+  edit(place, id) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    console.log(place);
+    console.log(id);
+    console.log(options);
+    return this.http.put(`http://localhost:3000/api/users/`,place, options)
+      .map((res) => res.json())
+      .catch(this.handleError);
   }
 }

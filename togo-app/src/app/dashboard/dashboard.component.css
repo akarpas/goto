@@ -9,6 +9,21 @@
   border: 1px solid lightgray;
 }
 
+.map-container {
+
+  border-radius: 25px;
+  margin-left: 20px;
+  height: 500px;
+  width:100%;
+}
+
+sebm-google-map {
+  border-radius: 25px;
+  margin: 0 auto;
+  height: 500px;
+  width: 100%;
+}
+
 .user-details {
   font-size: 20px;
   text-align: left;
@@ -22,8 +37,7 @@ li {
 #sample {
   border-radius: 20px;
   /*width: auto;*/
-  height: 600px;
-  width: auto;
+  height: 100%;
   margin: 0 auto;
 }
 

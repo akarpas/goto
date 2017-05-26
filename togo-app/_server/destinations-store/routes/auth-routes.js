@@ -16,8 +16,8 @@ authRoutes.post('/signup', (req, res, next) => {
   const postCode = req.body.postCode;
   const city = req.body.city;
   const country = req.body.country;
-  const lat = req.body.lat;
-  const lng = req.body.lng;
+  const lat = Number(req.body.lat);
+  const lng = Number(req.body.lng);
   const places = req.body.places;
 
   if (!username || !password) {
@@ -97,6 +97,7 @@ authRoutes.post('/logout', (req, res, next) => {
 });
 
 authRoutes.get('/loggedin', (req, res, next) => {
+  // console.log(req.isAuthenticated())
   if (req.isAuthenticated()) {
     res.status(200).json(req.user);
     return;
@@ -112,5 +113,7 @@ authRoutes.get('/private', (req, res, next) => {
 
   res.status(403).json({ message: 'Unauthorized' });
 });
+
+
 
 module.exports = authRoutes;

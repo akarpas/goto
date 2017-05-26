@@ -13,14 +13,14 @@ const userSchema = new Schema({
   postCode: String,
   city: String,
   country: String,
-  lat: String,
-  lng: String,
+  lat: Number,
+  lng: Number,
   places: [
     {
       city: String,
       country: String,
-      lat: String,
-      lng: String
+      lat: Number,
+      lng: Number
     }
   ],
   wishlist: [
