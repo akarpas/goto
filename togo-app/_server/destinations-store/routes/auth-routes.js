@@ -5,6 +5,9 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const authRoutes = express.Router();
+var jwt = require('jsonwebtoken');
+var jwtOptions = require('../configs/jwtOptions');
+
 
 authRoutes.post('/signup', (req, res, next) => {
   const username = req.body.email;
@@ -53,42 +56,45 @@ authRoutes.post('/signup', (req, res, next) => {
       if (err) {
         res.status(400).json({ message: 'Something went wrong' });
         return;
+      } else {
+        var payload = {id: user._id, user: user.username};
+        var token = jwt.sign(payload, jwtOptions.secretOrKey);
+        res.status(200).json({message: "ok", token: token, user: user});
       }
-      req.login(theUser, (err) => {
-        if (err) {
-          res.status(500).json({ message: 'Something went wrong' });
-          return;
-        }
-        res.status(200).json(req.user);
-      });
     });
   });
 });
 
-authRoutes.post('/login', (req, res, next) => {
-  console.log("this is req: " + JSON.stringify(req.body));
-  console.log("this is res: " + res.body);
-  passport.authenticate('local', (err, theUser, failureDetails) => {
-    if (err) {
-      res.status(500).json({ message: 'Something went wrong' });
-      return;
+authRoutes.post('/login', (req, res) => {
+
+  if(req.body.email && req.body.password){
+    var email = req.body.email;
+    var password = req.body.password;
+  }
+
+  if (email === "" || password === "") {
+    res.status(401).json({message:"fill up the fields"});
+    return;
+  }
+
+  User.findOne({ "email": email }, (err, user)=> {
+  	if( ! user ){
+	    res.status(401).json({message:"no such user found"});
+	  } else {
+      bcrypt.compare(password, user.password, function(err, isMatch) {
+        console.log(isMatch);
+        if (!isMatch) {
+          res.status(401).json({message:"passwords did not match"});
+        } else {
+        	console.log('user', user);
+          var payload = {id: user._id, user: user.email};
+          var token = jwt.sign(payload, jwtOptions.secretOrKey);
+          console.log(token);
+          res.json({message: "ok", token: token, user: user});
+        }
+      });
     }
-
-    if (!theUser) {
-      res.status(401).json(failureDetails);
-      return;
-    }
-
-    req.login(theUser, (err) => {
-      if (err) {
-        res.status(500).json({ message: 'Something went wrong' });
-        return;
-      }
-
-      // We are now logged in (notice req.user)
-      res.status(200).json(req.user);
-    });
-  })(req, res, next);
+  });
 });
 
 authRoutes.post('/logout', (req, res, next) => {

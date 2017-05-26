@@ -21,7 +21,7 @@ const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: MainFormComponent},
   {path: 'signup', component: SignupFormComponent},
-  {path: 'dashboard/:id', component: DashboardComponent},
+  {path: 'dashboard/:id', component: DashboardComponent, canActivate: [SessionService]},
   {path: 'results', component: ResultsComponent},
   {path: 'login', component: LoginFormComponent}
 
