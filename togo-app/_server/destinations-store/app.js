@@ -9,17 +9,21 @@ const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth-routes');
 const session    = require('express-session');
 const passport   = require('passport');
-
-var gotoApi = require('./routes/goto-api');
+const gotoApi = require('./routes/goto-api');
+const cors = require('cors');
 
 require('./configs/database');
-var cors = require('cors');
+
 var app = express();
-app.use(cors());
-// view engine setup
+var corsOptions = {credentials: true, origin: 'http://localhost:4200'};
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.options('*',cors(corsOptions));
+app.use(cors(corsOptions));
+
+app.use(passport.initialize());
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -31,15 +35,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/goto-database');
 
-app.use(session({
-  secret: 'angular auth passport secret shh',
-  resave: true,
-  saveUninitialized: true,
-  cookie : { httpOnly: true, maxAge: 2419200000 }
-}));
+// app.use(session({
+//   secret: 'angular auth passport secret shh',
+//   resave: true,
+//   saveUninitialized: true,
+//   cookie : { httpOnly: true, maxAge: 2419200000 }
+// }));
 
-const passportConfig = require('./configs/passport');
-passportConfig(passport);
+// const passportConfig = require('./configs/passport');
+// passportConfig(passport);
 
 
 app.use(passport.initialize());

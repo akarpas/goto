@@ -24,23 +24,27 @@ export class LoginFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.session.isLoggedIn()
-      .subscribe(
-        (user) => this.successCb(user)
-      );
   }
+
+
 
   login() {
     console.log(this.formInfo);
     this.session.login(this.formInfo)
-      .subscribe(
-    (user) => {
-      this.user = user
-      console.log("HERE: "+ user._id);
-      this.router.navigate(['/dashboard/',user._id]);
-    },
-      (err) => this.error = err
-    );
+    .subscribe(result => {
+	    if (result === true) {
+			     // login successful
+           console.log(result);
+           console.log('thor, ', JSON.parse(this.session.getUserFromLocal()))
+           var temp = JSON.parse(this.session.getUserFromLocal());
+           var id = temp._id;
+           console.log("this is the id: ", id)
+			     this.router.navigate(['/dashboard/',id]);
+				} else {
+			     // login failed
+			     this.error = 'Username or password is incorrect';
+		   }
+	  });
   }
 
   errorCb(err) {

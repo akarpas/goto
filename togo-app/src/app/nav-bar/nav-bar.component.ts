@@ -15,18 +15,11 @@ export class NavBarComponent implements OnInit {
   constructor(private session: SessionService) { }
 
   ngOnInit() {
-    this.session.isLoggedIn()
-      .subscribe(
-        (user) => this.successCb(user)
-      );
+
   }
 
   logout() {
     this.session.logout()
-      .subscribe(
-        () => this.user = null,
-        (err) => this.error = err
-      );
   }
 
   errorCb(err) {
