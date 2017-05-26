@@ -51,7 +51,32 @@ router.post('/users', (req, res, next)=> {
     message: 'Success',
     id: theUser._id
   });
+});
 
+router.put('/users', (req, res, next) => {
+  console.log(req);
+  // if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
+  //   res.status(400).json({ message: 'Specified id is not valid' });
+  //   return;
+  // }
+  //
+  // const updates = {
+  //   brand: req.body.brand,
+  //   name: req.body.name,
+  //   specs: req.body.specs,
+  //   image: req.body.image
+  // };
+  //
+  // User.findByIdAndUpdate(req.params.id, updates, (err) => {
+  //   if (err) {
+  //     res.json(err);
+  //     return;
+  //   }
+  //
+  //   res.json({
+  //     message: 'Places updated successfully'
+  //   });
+  // });
 });
 
 module.exports = router;

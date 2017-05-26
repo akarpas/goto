@@ -18,14 +18,14 @@ export class SignupFormComponent implements OnInit {
     postCode: '',
     city: '',
     country: '',
-    lat: '',
-    lng: '',
+    lat: 0,
+    lng: 0,
     password: '',
     places: [{
       city: '',
       country: '',
-      lat: '',
-      lng: ''
+      lat: 0,
+      lng: 0
     }]
   };
   passwordConfirm: '';
@@ -87,8 +87,8 @@ export class SignupFormComponent implements OnInit {
           //set latitude, longitude
           this.signupInfo.lat = place.geometry.location.lat();
           this.signupInfo.lng = place.geometry.location.lng();
-          this.signupInfo.places[0].lat = place.geometry.location.lat();
-          this.signupInfo.places[0].lng = place.geometry.location.lng();
+          this.signupInfo.places[0].lat = Number(place.geometry.location.lat());
+          this.signupInfo.places[0].lng = Number(place.geometry.location.lng());
           console.log(place);
           console.log("PLACES: "+ JSON.stringify(this.signupInfo.places));
         });
