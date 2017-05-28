@@ -91,24 +91,21 @@ export class SessionService implements CanActivate {
     this.isAuth = false;
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    this.router.navigate(['/login']);
+    this.router.navigate(['']);
   }
 
-  // isLoggedIn() {
-  //   return this.http.get(`http://localhost:3000/loggedin`)
-  //     .map(res => res.json())
-  //     .catch(this.handleError);
-  // }
+  getUserIdFromLocal() {
+    this.user = localStorage.getItem('user');
+    var tmp = JSON.parse(this.user);
+    return tmp._id;
+  }
 
-  // getPrivateData() {
-  //   return this.http.get(`http://localhost:3000/private`)
-  //     .map(res => res.json())
-  //     .catch(this.handleError);
-  // }
   getUserFromLocal() {
     this.user = localStorage.getItem('user');
-    return this.user;
+    var tmp = JSON.parse(this.user);
+    return tmp;
   }
+
   getUser(id) {
     return this.http.get(`http://localhost:3000/api/users/${id}`)
       .map(res => res.json())
@@ -118,10 +115,7 @@ export class SessionService implements CanActivate {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    console.log(place);
-    console.log(id);
-    console.log(options);
-    return this.http.put(`http://localhost:3000/api/users/`,place, options)
+    return this.http.put(`http://localhost:3000/api/users/${id}`,place, options)
       .map((res) => res.json())
       .catch(this.handleError);
   }

@@ -13,7 +13,6 @@ h2 {
 h3 {
   text-align: center;
   width: 100%;
-
 }
 
 .container-fluid {
@@ -25,6 +24,8 @@ h3 {
   border-radius: 20px;
   box-shadow: 3px 3px 6px rgb(92, 92, 92);
 }
+
+
 
 .button-primary {
   width: 200px;
@@ -73,8 +74,25 @@ input[type=radio] {
   font-size: 20px;
 }
 
-label {
+/*label {
   font-size: 18px;
+}*/
+
+label > input{ /* HIDE RADIO */
+  visibility: hidden; /* Makes input not-clickable */
+  position: absolute; /* Remove input from document flow */
+}
+label > input + img{ /* IMAGE STYLES */
+  cursor:pointer;
+  border:2px solid transparent;
+}
+label > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
+  background-color: #B89DC9;
+  border-radius: 15px;
+}
+
+.radio-icon {
+  width: 65px;
 }
 
 .date-style {
@@ -82,7 +100,7 @@ label {
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0);
   border: 1px solid lightgray;
-  width: 100%;
+  width: 250px;
 }
 
 

@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
 
     this.mapsAPILoader.load().then(() => {
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: ["address"]
+        types: ['(cities)']
       });
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
@@ -57,13 +57,37 @@ export class DashboardComponent implements OnInit {
           }
 
           // Location details
+          var area1;
+          var area2;
+          var area3;
+          var colluquial;
           for (let i = 0; i < place.address_components.length; i++) {
+            console.log("GOOGLE COMPONENT: ", place.address_components);
             if (place.address_components[i].types[0] === 'country') {
               this.newPlace.country = place.address_components[i].long_name;
             }
-            if (place.address_components[i].types[0] === 'locality') {
+            if (place.address_components[i].types[0] === 'locality' || place.address_components[i].types[0] === 'colloquial_area') {
               this.newPlace.city = place.address_components[i].long_name;
             }
+            if (place.address_components[i].types[0] === 'administrative_area_level_1') {
+              area1 = place.address_components[i].long_name;
+            }
+            if (place.address_components[i].types[0] === 'administrative_area_level_2') {
+              area2 = place.address_components[i].long_name;
+            }
+            if (place.address_components[i].types[0] === 'administrative_area_level_3') {
+              area3 = place.address_components[i].long_name;
+            }
+          }
+
+          if (this.newPlace.city === '') {
+            this.newPlace.city = area1;
+          }
+          if (this.newPlace.city === '') {
+            this.newPlace.city = area2;
+          }
+          if (this.newPlace.city === '') {
+            this.newPlace.city = area3;
           }
 
           //set latitude, longitude
@@ -96,7 +120,10 @@ export class DashboardComponent implements OnInit {
     console.log("this is the new place: " + this.newPlace);
     console.log("this is the user ID: " + this.userId);
     this.session.edit(this.newPlace, this.userId)
-      .subscribe((user)=>{
+      .subscribe((place)=>{
+        this.newPlace.city = "";
+        this.newPlace.country = "";
+        this.getUserDetails(this.userId);
       });
   };
 }
