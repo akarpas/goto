@@ -34,11 +34,7 @@ export class LoginFormComponent implements OnInit {
     .subscribe(result => {
 	    if (result === true) {
 			     // login successful
-           console.log(result);
-           console.log('thor, ', JSON.parse(this.session.getUserFromLocal()))
-           var temp = JSON.parse(this.session.getUserFromLocal());
-           var id = temp._id;
-           console.log("this is the id: ", id)
+           var id = this.session.getUserIdFromLocal();
 			     this.router.navigate(['/dashboard/',id]);
 				} else {
 			     // login failed

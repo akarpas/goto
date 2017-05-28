@@ -78,7 +78,7 @@ export class SignupFormComponent implements OnInit {
             if (place.address_components[i].types[0] === 'street_number') {
             this.signupInfo.streetN = place.address_components[i].long_name;
             }
-            if (place.address_components[i].types[0] === 'locality') {
+            if (place.address_components[i].types[0] === 'city') {
             this.signupInfo.city = place.address_components[i].long_name;
             this.signupInfo.places[0].city = place.address_components[i].long_name;
             }

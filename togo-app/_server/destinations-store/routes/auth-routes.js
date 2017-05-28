@@ -52,7 +52,7 @@ authRoutes.post('/signup', (req, res, next) => {
       places: places
     });
 
-    theUser.save((err) => {
+    theUser.save((err, user) => {
       if (err) {
         res.status(400).json({ message: 'Something went wrong' });
         return;

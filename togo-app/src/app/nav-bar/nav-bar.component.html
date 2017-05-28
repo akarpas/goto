@@ -4,16 +4,16 @@
   </div>
   <div class="menu-right">
     <div class="row">
-      <div *ngIf="!user" class="column login-style">
+      <div *ngIf="!this.session.isAuth" class="column login-style">
         <a href="#"><strong><a [routerLink]="['login']">Login</a></strong></a>
       </div>
-      <div *ngIf="!user" class="column register-style">
+      <div *ngIf="!this.session.isAuth" class="column register-style">
         <a href="#"><strong><a [routerLink]="['signup']">Register</a></strong></a>
       </div>
-      <div *ngIf="user" class="column login-style">
-        <a href="#"><strong><a [routerLink]="['dashboard']">Dashboard</a></strong></a>
+      <div *ngIf="this.session.isAuth" class="column login-style">
+        <a href="#"><strong><a [routerLink]="['dashboard/' + this.session.getUserIdFromLocal()]">Dashboard</a></strong></a>
       </div>
-      <div *ngIf="user" class="column register-style">
+      <div *ngIf="this.session.isAuth" class="column register-style">
         <a href=""><strong><a (click)="logout()">Logout</a></strong></a>
       </div>
     </div>

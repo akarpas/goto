@@ -11,7 +11,8 @@
       <div class="row">
         <div class="column">
           <label for="nameField">Name</label>
-          <input type="text" placeholder="or nickname, whatever rocks your boat..." id="nameField" name="name" [(ngModel)]="newSearch.name">
+          <input *ngIf="this.session.isAuth" type="text" placeholder="TEST" id="nameField" name="name" [(ngModel)]="newSearch.name">
+          <input *ngIf="!this.session.isAuth" type="text" placeholder="or nickname, whatever rocks your boat..." id="nameField" name="name" [(ngModel)]="newSearch.name">
         </div>
         <div class="column">
           <label for="cityField">Country</label>
@@ -35,7 +36,7 @@
           </select>
         </div>
         <div class="column">
-          <label for="budgetField">What's each person's budget?</label>
+          <label for="budgetField">What's the budget?</label>
           <select id="budgetField" name="budget" [(ngModel)]="newSearch.budget">
             <option value="2000">kind of stingy (up to 2,000 EUR)</option>
             <option value="4000">saved up (up to 4,000 EUR)</option>
@@ -45,7 +46,7 @@
           </select>
         </div>
         <div class="column">
-          <label for="travelField">How about travelling duration?</label>
+          <label for="travelField">Travelling duration?</label>
           <select id="travelField" name="duration" [(ngModel)]="newSearch.duration">
             <option value="6">short and sweet (up to 6 hours one way)</option>
             <option value="12">somewhere in the middle (up to 12 hours one way)</option>
@@ -63,34 +64,55 @@
             <label for="endField">End Date</label>
             <input type="date" class="date-style" placeholder="end date" id="endField" name="endDate" [(ngModel)]="newSearch.endDate">
           </div>
-        </div>
+        </div><br>
         <div class="row centered">
           <label for="typeField">What's your preference?</label>
-        </div>
+        </div><BR>
         <div class="row">
           <div class="column">
 
           </div>
           <div class="column text-center">
-            <input type="radio" class="checkbox-style" name="typeField" value="Adventure" (change)="onSelectionChange('Adventure')"><br>Adventure
+            <label>
+              <input type="radio" class="checkbox-style" name="typeField" value="Adventure" (change)="onSelectionChange('Adventure')">
+              <img class="radio-icon" src="./assets/images/adventure.png"><br>An Adventure
+            </label>
           </div>
           <div class="column text-center">
-            <input type="radio" class="checkbox-style" name="typeField" value="Bachelor" (change)="onSelectionChange('Bachelor')"><br>Bachelor
+            <label>
+              <input type="radio" class="checkbox-style" name="typeField" value="Bachelor" (change)="onSelectionChange('Bachelor')">
+              <img class="radio-icon" src="./assets/images/bachelor.png"><br>Bachelor Party
+            </label>
           </div>
           <div class="column text-center">
-            <input type="radio" class="checkbox-style" name="typeField" value="Sightseeing" (change)="onSelectionChange('Sightseeing')"><br>Sightseeing
+            <label>
+              <input type="radio" class="checkbox-style" name="typeField" value="Sightseeing" (change)="onSelectionChange('Sightseeing')">
+              <img class="radio-icon" src="./assets/images/sightseeing.png"><br>For Sightseeing
+            </label>
           </div>
           <div class="column text-center">
-            <input type="radio" class="checkbox-style" name="typeField" value="Sports" (change)="onSelectionChange('Sports')"><br>Sports
+            <label>
+              <input type="radio" class="checkbox-style" name="typeField" value="Sports" (change)="onSelectionChange('Sports')">
+              <img class="radio-icon" src="./assets/images/skiing.png"><br>For<br>Sports
+            </label>
           </div>
           <div class="column text-center">
-            <input type="radio" class="checkbox-style" name="typeField" value="Partying" (change)="onSelectionChange('Partying')"><br>Partying
+            <label>
+              <input type="radio" class="checkbox-style" name="typeField" value="Partying" (change)="onSelectionChange('Partyinh')">
+              <img class="radio-icon" src="./assets/images/party.png"><br>For Partying
+            </label>
           </div>
           <div class="column text-center">
-            <input type="radio" class="checkbox-style" name="typeField" value="Relaxing" (change)="onSelectionChange('Relaxing')"><br>Relaxing
+            <label>
+              <input type="radio" class="checkbox-style" name="typeField" value="Relaxing" (change)="onSelectionChange('Relaxing')">
+              <img class="radio-icon" src="./assets/images/relaxing.png"><br>For Relaxing
+            </label>
           </div>
           <div class="column text-center">
-            <input type="radio" class="checkbox-style" name="typeField" value="Family" (change)="onSelectionChange('Family')"><br>Family
+            <label>
+              <input type="radio" class="checkbox-style" name="typeField" value="Family" (change)="onSelectionChange('Family')">
+              <img class="radio-icon" src="./assets/images/family.png"><br>For a Family
+            </label>
           </div>
           <div class="column">
 

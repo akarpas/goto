@@ -53,12 +53,39 @@ router.post('/users', (req, res, next)=> {
   });
 });
 
-router.put('/users', (req, res, next) => {
-  console.log(req);
+router.put('/users/:user_id', (req, res, next) => {
+  console.log("THIS IS REQ: ",req);
+  console.log("THIS WORKS!");
+
   // if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
   //   res.status(400).json({ message: 'Specified id is not valid' });
   //   return;
   // }
+  User.findById(req.params.user_id, (err,user)=>{
+      if (err) {
+        res.status(500).json({message: err});
+      } else {
+        var index = user.places.length;
+        var tmpPlace = {
+          city: req.body.city,
+          country: req.body.country,
+          lat: req.body.lat,
+          lng: req.body.lng
+        };
+        user.places.push(tmpPlace);
+        const newUser = user;
+        User.findByIdAndUpdate(req.params.user_id, newUser, (err) => {
+          if (err) {
+            res.json(err);
+            return;
+          }
+
+          res.json({
+            message: 'User updated successfully'
+          });
+        });
+			}
+  });
   //
   // const updates = {
   //   brand: req.body.brand,
@@ -67,11 +94,7 @@ router.put('/users', (req, res, next) => {
   //   image: req.body.image
   // };
   //
-  // User.findByIdAndUpdate(req.params.id, updates, (err) => {
-  //   if (err) {
-  //     res.json(err);
-  //     return;
-  //   }
+
   //
   //   res.json({
   //     message: 'Places updated successfully'
