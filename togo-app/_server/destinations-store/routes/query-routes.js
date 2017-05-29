@@ -6,7 +6,7 @@ const Destination = require('../models/destination');
 const amadeus = require("../helpers/amadeus_api");
 const queryRoutes = express.Router();
 const https = require('https');
-const request = require('request');
+const request = require('request-promise');
 
 
 // Code here //
@@ -76,6 +76,7 @@ queryRoutes.post('/search',(req, res, next)=>{
 
 function checkFlights(query, tmpResults) {
 
+  var destinationsMatched = [];
   console.log("in check flights function");
   console.log("temp results: " + tmpResults);
   console.log("query: " + query);
@@ -88,48 +89,84 @@ function checkFlights(query, tmpResults) {
   const outDate = query.startDate;
   const inDate = query.endDate;
   const adults = 1;
-  const API_KEY = "SKYSCANNERKEY";
+
+  var flightCost = 0;
+  var totalBudget = 0;
+  switch (query.budget) {
+    case "2000":
+      flightCost = (2000 * (25/100));
+      totalBudget = 2000;
+    break;
+    case "4000":
+      flightCost = (4000 * (25/100));
+      totalBudget = 4000;
+    break;
+    case "6000":
+      flightCost = (6000 * (25/100));
+      totalBudget = 6000;
+    break;
+    case "8000":
+      flightCost = (8000 * (25/100));
+      totalBudget = 8000;
+    break;
+    case "15000":
+      flightCost = (15000 * (25/100));
+      totalBudget = 15000;
+    break;
+  }
+
+  var durationHours = 0;
+  var durationMilliSeconds = 0;
+  switch (query.budget) {
+    case "6":
+      durationHours = 6;
+      durationMilliSeconds = (6*60*60*1000);
+    break;
+    case "12":
+      durationHours = (4000 * (25/100));
+      durationMilliSeconds = (12*60*60*1000);
+    break;
+    case "24":
+      durationHours = (6000 * (25/100));
+      durationMilliSeconds = (24*60*60*1000);
+    break;
+  }
+  const API_KEY = "amadeus key here"; // ***************
   var x = 1;
 
-  tmpResults.forEach(function(result){
-    const destination = result.airports[0];
-    console.log("Airport " + x + " " + destination);
+  tmpResults.forEach(function(item){
+    const destination = item.airports[0];
+    // console.log("Airport " + x + " " + destination);
     x++;
-  });
-  // curl "http://partners.api.skyscanner.net/apiservices/pricing/v1.0"
-  //   -X POST
-  //   -H "Content-Type: application/x-www-form-urlencoded"
-  //   -d 'country=UK
-  //   &currency=GBP
-  //   &locale=en-GB
-  //   &locationSchema=iata
-  //   &originplace=EDI
-  //   &destinationplace=LHR
-  //   &outbounddate=2017-05-30
-  //   &inbounddate=2017-06-02
-  //   &adults=1
-  //   &children=0
-  //   &infants=0
-  //   &apikey=prtl6749387986743898559646983194'
+    const url = "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey="+API_KEY+"&origin="+origin+"&destination="+destination+"&departure_date=" + outDate + "&return_date=" + inDate + "&adults=1&max_price=" + 300 + "&currency=EUR&number_of_results=3";
+    console.log("this is the final url: "+ url);
+    let results;
 
-    var headers = new Headers();
-    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    request.get(url).then(function(result){
+      console.log("this is the result bro: " + result);
+       results = JSON.parse(result);
 
-    const url = "http://partners.api.skyscanner.net/apiservices/pricing/v1.0"+city+"|country:"+country +"&key=AIzaSyCIItiTxhbvrYb-azJAsLehb8YJFoKYH84";
-    request(url, (err, resp, body)=> {
-       body = JSON.parse(body);
-       console.log("this is the body: " + JSON.stringify(body.results[0].geometry.location.lat));
-       if (err) {
-         res.status(401).json({message: "error"});
-        } else {
-          coordinates.lat = body.results[0].geometry.location.lat;
-          coordinates.lng = body.results[0].geometry.location.lng;
+        if (results.results !== undefined) {
+          var index = results.results[0].itineraries[0].outbound.flights.length;
+          console.log("this is the index: " + index);
+          destinationsMatched.push(results.results[0].itineraries[0].outbound.flights[index-1].destination.airport);
         }
-        console.log("before exit: City: " + city + " - " + JSON.stringify(coordinates));
-        callback(tmpCoordinates, coordinates);
+    });
+    });
 
-        });
+    setTimeout(function(){
+      var tmpResults2 = [];
+      tmpResults.forEach(function(item){
+        if (destinationsMatched.indexOf(item.airports[0]) !== -1) {
+          tmpResults2.push(item);
+        }
+      });
+      console.log("these are the matched destinations: " + destinationsMatched);
+      tmpResults2.forEach(function(item){
+      });
+    },12000);
 
 }
+
 
 module.exports = queryRoutes;

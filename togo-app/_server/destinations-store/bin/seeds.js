@@ -1485,7 +1485,7 @@ const data = [
     "Type5": "Sightseeing",
     "Type6": "Party",
     "Type7": "Bachelor",
-    "Airport1": "BCN",
+    "Airport1": "TLS",
     "Airport2": "TLS",
     "lat": 42.506317,
     "lng": 1.521835

@@ -2,6 +2,7 @@ import { NgZone, ElementRef, Component, OnInit, ChangeDetectorRef, ViewChild } f
 import { FormControl } from "@angular/forms";
 import { MapsAPILoader } from 'angular2-google-maps/core';
 import { SessionService } from "../session.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-signup-form',
@@ -44,7 +45,8 @@ export class SignupFormComponent implements OnInit {
   constructor(
     private session: SessionService,
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -107,6 +109,7 @@ export class SignupFormComponent implements OnInit {
         (user) => this.user = user,
         (err) => this.error = err
       );
+    this.router.navigate(['/login']);
   }
 
 }

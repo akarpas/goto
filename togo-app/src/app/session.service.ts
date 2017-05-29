@@ -89,14 +89,15 @@ export class SessionService implements CanActivate {
     this.token = null;
     this.user = null;
     this.isAuth = false;
+    this.router.navigate(['']);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    this.router.navigate(['']);
   }
 
   getUserIdFromLocal() {
     this.user = localStorage.getItem('user');
     var tmp = JSON.parse(this.user);
+    console.log("this is tmp: "+tmp);
     return tmp._id;
   }
 
