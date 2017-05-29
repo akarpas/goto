@@ -5,16 +5,16 @@
   <div class="menu-right">
     <div class="row">
       <div *ngIf="!this.session.isAuth" class="column login-style">
-        <a href="#"><strong><a [routerLink]="['login']">Login</a></strong></a>
+        <button type="button" class="button-clear" name="button" (click)="gotoLogin()">Login</button>
       </div>
       <div *ngIf="!this.session.isAuth" class="column register-style">
-        <a href="#"><strong><a [routerLink]="['signup']">Register</a></strong></a>
+        <button type="button" class="button-clear" name="button" (click)="gotoRegister()">Register</button>
       </div>
       <div *ngIf="this.session.isAuth" class="column login-style">
-        <a href="#"><strong><a [routerLink]="['dashboard/' + this.session.getUserIdFromLocal()]">Dashboard</a></strong></a>
+        <button type="button" class="button-clear" name="button" (click)="gotoDashboard()">DashBoard</button>
       </div>
       <div *ngIf="this.session.isAuth" class="column register-style">
-        <a href=""><strong><a (click)="logout()">Logout</a></strong></a>
+        <button type="button" class="button-clear" name="button" (click)="logout()">Logout</button>
       </div>
     </div>
   </div>

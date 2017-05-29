@@ -112,11 +112,12 @@ export class MainFormComponent implements OnInit {
     // console.log(this.newSearch);
     console.log("ORIGIN AIRPORT: " + this.newSearch.origin_airport);
     this.apiSession.handleQuery(this.newSearch).subscribe(result=>{console.log(result)});
+
   }
 
   getAirport() {
     console.log("are we here?");
-    const API_AMADEUS = "XXXXX";
+    const API_AMADEUS = "api key here"; // **********************
     let airport;
     const url = "https://api.sandbox.amadeus.com/v1.2/airports/nearest-relevant?apikey="+API_AMADEUS+"&latitude&latitude=" + Number(this.newSearch.origin_lat) + "&longitude=" + Number(this.newSearch.origin_lng);
     console.log(url);

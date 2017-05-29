@@ -12,7 +12,10 @@ export class NavBarComponent implements OnInit {
   user: any;
   error: string;
 
-  constructor(private session: SessionService) { }
+  constructor(
+    private session: SessionService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
 
@@ -30,6 +33,19 @@ export class NavBarComponent implements OnInit {
   successCb(user) {
     this.user = user;
     this.error = null;
+  }
+
+  gotoDashboard() {
+    var id = this.session.getUserIdFromLocal();
+    this.router.navigate(['/dashboard/',id]);
+  }
+
+  gotoRegister() {
+    this.router.navigate(['/signup']);
+  }
+
+  gotoLogin() {
+    this.router.navigate(['/login']);
   }
 
 }
