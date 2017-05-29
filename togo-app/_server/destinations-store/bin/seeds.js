@@ -2,6 +2,8 @@
 
 const mongoose = require("mongoose");
 const Destination = require('../models/destination');
+const https = require('https');
+const request = require('request');
 
 mongoose.connect("mongodb://localhost/goto-database");
 
@@ -19,7 +21,11 @@ const data = [
     "Type4": "Bachelor",
     "Type5": "Sports",
     "Type6": "Family",
-    "Type7": "Relaxing"
+    "Type7": "Relaxing",
+    "Airport1": "HKG",
+    "Airport2": "SZX",
+    "lat": 22.396428,
+    "lng": 114.109497
   },
   {
     "ID": 2,
@@ -34,7 +40,11 @@ const data = [
     "Type4": "Party",
     "Type5": "Sports",
     "Type6": "Family",
-    "Type7": "Bachelor"
+    "Type7": "Bachelor",
+    "Airport1": "SIN",
+    "Airport2": "KUL",
+    "lat": 1.352083,
+    "lng": 103.819836
   },
   {
     "ID": 3,
@@ -49,7 +59,11 @@ const data = [
     "Type4": "Party",
     "Type5": "Relaxing",
     "Type6": "Family",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "BKK",
+    "Airport2": "DMK",
+    "lat": 13.7563309,
+    "lng": 100.5017651
   },
   {
     "ID": 4,
@@ -64,7 +78,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Adventure",
     "Type6": "Sports",
-    "Type7": "Relaxing"
+    "Type7": "Relaxing",
+    "Airport1": "LHR",
+    "Airport2": "LGW",
+    "lat": 51.5073509,
+    "lng": -0.1277583
   },
   {
     "ID": 5,
@@ -79,7 +97,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Bachelor",
     "Type6": "Sports",
-    "Type7": "Relaxing"
+    "Type7": "Relaxing",
+    "Airport1": "CDG",
+    "Airport2": "ORY",
+    "lat": 48.856614,
+    "lng": 2.3522219
   },
   {
     "ID": 6,
@@ -94,7 +116,11 @@ const data = [
     "Type4": "Adventure",
     "Type5": "Relaxing",
     "Type6": "Family",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "MFM",
+    "Airport2": "HKG",
+    "lat": 22.198745,
+    "lng": 113.543873
   },
   {
     "ID": 7,
@@ -109,7 +135,11 @@ const data = [
     "Type4": "Adventure",
     "Type5": "Sports",
     "Type6": "Family",
-    "Type7": "Relaxing"
+    "Type7": "Relaxing",
+    "Airport1": "JFK",
+    "Airport2": "EWR",
+    "lat": 40.712784,
+    "lng": -74.005941
   },
   {
     "ID": 8,
@@ -124,7 +154,11 @@ const data = [
     "Type4": "Party",
     "Type5": "Bachelor",
     "Type6": "Sports",
-    "Type7": "Relaxing"
+    "Type7": "Relaxing",
+    "Airport1": "HKG",
+    "Airport2": "SZX",
+    "lat": 22.543096,
+    "lng": 114.057865
   },
   {
     "ID": 9,
@@ -139,7 +173,11 @@ const data = [
     "Type4": "Party",
     "Type5": "Bachelor",
     "Type6": "Relaxing",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "KUL",
+    "Airport2": "SZB",
+    "lat": 3.139003,
+    "lng": 101.686855
   },
   {
     "ID": 10,
@@ -154,7 +192,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "AYT",
+    "Airport2": "RHO",
+    "lat": 36.896891,
+    "lng": 30.713323
   },
   {
     "ID": 11,
@@ -169,7 +211,11 @@ const data = [
     "Type4": "Bachelor",
     "Type5": "Sports",
     "Type6": "Relaxing",
-    "Type7": "Family"
+    "Type7": "Family",
+    "Airport1": "IST",
+    "Airport2": "SAW",
+    "lat": 41.008238,
+    "lng": 28.978359
   },
   {
     "ID": 12,
@@ -184,7 +230,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "DXB",
+    "Airport2": "SHJ",
+    "lat": 25.2048493,
+    "lng": 55.2707828
   },
   {
     "ID": 13,
@@ -199,7 +249,11 @@ const data = [
     "Type4": "Bachelor",
     "Type5": "Family",
     "Type6": "Sports",
-    "Type7": "Relaxing"
+    "Type7": "Relaxing",
+    "Airport1": "ICN",
+    "Airport2": "GMP",
+    "lat": 37.566535,
+    "lng": 126.9779692
   },
   {
     "ID": 14,
@@ -214,7 +268,11 @@ const data = [
     "Type4": "Sports",
     "Type5": "Adventure",
     "Type6": "Relaxing",
-    "Type7": "Bachelor"
+    "Type7": "Bachelor",
+    "Airport1": "FCO",
+    "Airport2": "CIA",
+    "lat": 41.9027835,
+    "lng": 12.4963655
   },
   {
     "ID": 15,
@@ -229,7 +287,11 @@ const data = [
     "Type4": "Party",
     "Type5": "Bachelor",
     "Type6": "Family",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "HKT",
+    "Airport2": "KBV",
+    "lat": 7.9519331,
+    "lng": 98.3380884
   },
   {
     "ID": 16,
@@ -244,7 +306,11 @@ const data = [
     "Type4": "Party",
     "Type5": "Bachelor",
     "Type6": "Relaxing",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "CAN",
+    "Airport2": "HKG",
+    "lat": 23.12911,
+    "lng": 113.264385
   },
   {
     "ID": 17,
@@ -259,7 +325,11 @@ const data = [
     "Type4": "Sightseeing",
     "Type5": "Sports",
     "Type6": "Party",
-    "Type7": "Bachelor"
+    "Type7": "Bachelor",
+    "Airport1": "JED",
+    "Airport2": "TIF",
+    "lat": 21.3890824,
+    "lng": 39.8579118
   },
   {
     "ID": 18,
@@ -274,7 +344,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "BKK",
+    "Airport2": "DMK",
+    "lat": 12.9276082,
+    "lng": 100.8770813
   },
   {
     "ID": 19,
@@ -289,7 +363,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "TSA",
+    "Airport2": "TPE",
+    "lat": 25.0329694,
+    "lng": 121.5654177
   },
   {
     "ID": 20,
@@ -304,7 +382,11 @@ const data = [
     "Type4": "Sightseeing",
     "Type5": "Adventure",
     "Type6": "Sports",
-    "Type7": "Family"
+    "Type7": "Family",
+    "Airport1": "MIA",
+    "Airport2": "FLL",
+    "lat": 25.76168,
+    "lng": -80.19179
   },
   {
     "ID": 21,
@@ -319,7 +401,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Adventure",
     "Type6": "Relaxing",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "PRG",
+    "Airport2": "MUC",
+    "lat": 50.0755381,
+    "lng": 14.4378005
   },
   {
     "ID": 22,
@@ -334,7 +420,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "SHA",
+    "Airport2": "PVG",
+    "lat": 31.2303904,
+    "lng": 121.4737021
   },
   {
     "ID": 23,
@@ -349,7 +439,11 @@ const data = [
     "Type4": "Sightseeing",
     "Type5": "Sports",
     "Type6": "Family",
-    "Type7": "Relaxing"
+    "Type7": "Relaxing",
+    "Airport1": "LAS",
+    "Airport2": "BLD",
+    "lat": 36.1699412,
+    "lng": -115.1398296
   },
   {
     "ID": 24,
@@ -364,7 +458,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Adventure",
     "Type6": "Sports",
-    "Type7": "Relaxing"
+    "Type7": "Relaxing",
+    "Airport1": "LIN",
+    "Airport2": "MXP",
+    "lat": 45.4654219,
+    "lng": 9.1859243
   },
   {
     "ID": 25,
@@ -379,7 +477,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Bachelor",
     "Type6": "Sports",
-    "Type7": "Adventure"
+    "Type7": "Adventure",
+    "Airport1": "BCN",
+    "Airport2": "PMI",
+    "lat": 41.3850639,
+    "lng": 2.1734035
   },
   {
     "ID": 26,
@@ -394,7 +496,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Bachelor",
     "Type6": "Sports",
-    "Type7": "Adventure"
+    "Type7": "Adventure",
+    "Airport1": "SVO",
+    "Airport2": "DME",
+    "lat": 55.755826,
+    "lng": 37.6173
   },
   {
     "ID": 27,
@@ -409,7 +515,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Adventure",
     "Type6": "Sports",
-    "Type7": "Family"
+    "Type7": "Family",
+    "Airport1": "AMS",
+    "Airport2": "BRU",
+    "lat": 52.3702157,
+    "lng": 4.8951679
   },
   {
     "ID": 28,
@@ -424,7 +534,11 @@ const data = [
     "Type4": "Bachelor",
     "Type5": "Relaxing",
     "Type6": "Sports",
-    "Type7": "Adventure"
+    "Type7": "Adventure",
+    "Airport1": "VIE",
+    "Airport2": "PRG",
+    "lat": 48.208174,
+    "lng": 16.373819
   },
   {
     "ID": 29,
@@ -439,7 +553,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "VCE",
+    "Airport2": "TSF",
+    "lat": 45.4408474,
+    "lng": 12.3155151
   },
   {
     "ID": 30,
@@ -454,7 +572,11 @@ const data = [
     "Type4": "Bachelor",
     "Type5": "Adventure",
     "Type6": "Relaxing",
-    "Type7": "Family"
+    "Type7": "Family",
+    "Airport1": "LAX",
+    "Airport2": "BUR",
+    "lat": 34.052234,
+    "lng": -118.243685
   },
   {
     "ID": 31,
@@ -469,7 +591,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "LIM",
+    "Airport2": "",
+    "lat": -12.0463731,
+    "lng": -77.042754
   },
   {
     "ID": 32,
@@ -484,7 +610,11 @@ const data = [
     "Type4": "Bachelor",
     "Type5": "Family",
     "Type6": "Relaxing",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "HND",
+    "Airport2": "NRT",
+    "lat": 35.6894875,
+    "lng": 139.6917064
   },
   {
     "ID": 33,
@@ -499,7 +629,11 @@ const data = [
     "Type4": "Party",
     "Type5": "Bachelor",
     "Type6": "Family",
-    "Type7": "Relaxing"
+    "Type7": "Relaxing",
+    "Airport1": "JNB",
+    "Airport2": "HLA",
+    "lat": -26.2041028,
+    "lng": 28.0473051
   },
   {
     "ID": 34,
@@ -514,7 +648,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "PEK",
+    "Airport2": "NAY",
+    "lat": 39.9041999,
+    "lng": 116.4073963
   },
   {
     "ID": 35,
@@ -529,7 +667,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Bachelor",
     "Type6": "Party",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "SOF",
+    "Airport2": "SKG",
+    "lat": 42.6977082,
+    "lng": 23.3218675
   },
   {
     "ID": 36,
@@ -544,7 +686,11 @@ const data = [
     "Type4": "Sightseeing",
     "Type5": "Party",
     "Type6": "Sports",
-    "Type7": "Bachelor"
+    "Type7": "Bachelor",
+    "Airport1": "MCO",
+    "Airport2": "SFB",
+    "lat": 28.5383355,
+    "lng": -81.3792365
   },
   {
     "ID": 37,
@@ -559,7 +705,11 @@ const data = [
     "Type4": "Adventure",
     "Type5": "Family",
     "Type6": "Sports",
-    "Type7": "Relaxing"
+    "Type7": "Relaxing",
+    "Airport1": "TXL",
+    "Airport2": "SXF",
+    "lat": 52.5200066,
+    "lng": 13.404954
   },
   {
     "ID": 38,
@@ -574,7 +724,11 @@ const data = [
     "Type4": "Adventure",
     "Type5": "Family",
     "Type6": "Relaxing",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "BUD",
+    "Airport2": "VIE",
+    "lat": 47.497912,
+    "lng": 19.040235
   },
   {
     "ID": 39,
@@ -589,7 +743,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "SGN",
+    "Airport2": "PNH",
+    "lat": 10.823099,
+    "lng": 106.629664
   },
   {
     "ID": 40,
@@ -604,7 +762,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "FLR",
+    "Airport2": "FCO",
+    "lat": 43.7695604,
+    "lng": 11.2558136
   },
   {
     "ID": 41,
@@ -619,7 +781,11 @@ const data = [
     "Type4": "Party",
     "Type5": "Sports",
     "Type6": "Relaxing",
-    "Type7": "Bachelor"
+    "Type7": "Bachelor",
+    "Airport1": "MAD",
+    "Airport2": "VLC",
+    "lat": 40.4167754,
+    "lng": -3.7037902
   },
   {
     "ID": 42,
@@ -634,7 +800,11 @@ const data = [
     "Type4": "Party",
     "Type5": "Relaxing",
     "Type6": "Sports",
-    "Type7": "Bachelor"
+    "Type7": "Bachelor",
+    "Airport1": "WAW",
+    "Airport2": "WMI",
+    "lat": 52.2296756,
+    "lng": 21.0122287
   },
   {
     "ID": 43,
@@ -649,7 +819,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "DOH",
+    "Airport2": "BAH",
+    "lat": 25.285447,
+    "lng": 51.53104
   },
   {
     "ID": 44,
@@ -664,7 +838,11 @@ const data = [
     "Type4": "Sightseeing",
     "Type5": "-",
     "Type6": "-",
-    "Type7": "-"
+    "Type7": "-",
+    "Airport1": "WIL",
+    "Airport2": "NBO",
+    "lat": -1.292066,
+    "lng": 36.821946
   },
   {
     "ID": 45,
@@ -679,7 +857,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Party",
     "Type6": "-",
-    "Type7": "-"
+    "Type7": "-",
+    "Airport1": "DEL",
+    "Airport2": "JAI",
+    "lat": 28.7040592,
+    "lng": 77.1024902
   },
   {
     "ID": 46,
@@ -694,7 +876,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Party",
     "Type6": "-",
-    "Type7": "-"
+    "Type7": "-",
+    "Airport1": "BOM",
+    "Airport2": "PNQ",
+    "lat": 19.0759837,
+    "lng": 72.8776559
   },
   {
     "ID": 47,
@@ -709,7 +895,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Party",
     "Type6": "-",
-    "Type7": "-"
+    "Type7": "-",
+    "Airport1": "MAA",
+    "Airport2": "BLR",
+    "lat": 13.0826802,
+    "lng": 80.2707184
   },
   {
     "ID": 48,
@@ -724,7 +914,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Sports",
     "Type6": "-",
-    "Type7": "-"
+    "Type7": "-",
+    "Airport1": "MEX",
+    "Airport2": "TLC",
+    "lat": 19.4326077,
+    "lng": -99.133208
   },
   {
     "ID": 49,
@@ -739,7 +933,11 @@ const data = [
     "Type4": "Bachelor",
     "Type5": "Adventure",
     "Type6": "Sports",
-    "Type7": "Relaxing"
+    "Type7": "Relaxing",
+    "Airport1": "DUB",
+    "Airport2": "MAN",
+    "lat": 53.349805,
+    "lng": -6.26031
   },
   {
     "ID": 50,
@@ -754,7 +952,11 @@ const data = [
     "Type4": "Bachelor",
     "Type5": "Relaxing",
     "Type6": "Sports",
-    "Type7": "Adventure"
+    "Type7": "Adventure",
+    "Airport1": "SFO",
+    "Airport2": "OAK",
+    "lat": 37.774929,
+    "lng": -122.419416
   },
   {
     "ID": 51,
@@ -769,7 +971,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "HGH",
+    "Airport2": "PVG",
+    "lat": 30.274084,
+    "lng": 120.15507
   },
   {
     "ID": 52,
@@ -784,7 +990,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "DPS",
+    "Airport2": "LOP",
+    "lat": -8.6704582,
+    "lng": 115.2126293
   },
   {
     "ID": 53,
@@ -799,7 +1009,11 @@ const data = [
     "Type4": "Party",
     "Type5": "Relaxing",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "PIE",
+    "Airport2": "",
+    "lat": 59.9342802,
+    "lng": 30.3350986
   },
   {
     "ID": 54,
@@ -814,7 +1028,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Party",
     "Type6": "Sports",
-    "Type7": "Bachelor"
+    "Type7": "Bachelor",
+    "Airport1": "AYT",
+    "Airport2": "RHO",
+    "lat": 37.183582,
+    "lng": 28.486396
   },
   {
     "ID": 55,
@@ -829,7 +1047,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Adventure",
     "Type6": "Sports",
-    "Type7": "Family"
+    "Type7": "Family",
+    "Airport1": "BRU",
+    "Airport2": "AMS",
+    "lat": 50.850346,
+    "lng": 4.351721
   },
   {
     "ID": 56,
@@ -844,7 +1066,11 @@ const data = [
     "Type4": "Bachelor",
     "Type5": "Party",
     "Type6": "Family",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "BOJ",
+    "Airport2": "IST",
+    "lat": 42.5047926,
+    "lng": 27.4626361
   },
   {
     "ID": 57,
@@ -859,7 +1085,11 @@ const data = [
     "Type4": "Bachelor",
     "Type5": "Adventure",
     "Type6": "Relaxing",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "MUC",
+    "Airport2": "STR",
+    "lat": 48.1351253,
+    "lng": 11.5819806
   },
   {
     "ID": 58,
@@ -874,7 +1104,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "HKG",
+    "Airport2": "SZX",
+    "lat": 22.270978,
+    "lng": 113.576677
   },
   {
     "ID": 59,
@@ -889,7 +1123,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Relaxing",
     "Type6": "Sports",
-    "Type7": "Bachelor"
+    "Type7": "Bachelor",
+    "Airport1": "SYD",
+    "Airport2": "CBR",
+    "lat": -33.8688197,
+    "lng": 151.2092955
   },
   {
     "ID": 60,
@@ -904,7 +1142,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "-",
     "Type6": "-",
-    "Type7": "-"
+    "Type7": "-",
+    "Airport1": "IST",
+    "Airport2": "SAW",
+    "lat": 41.67713,
+    "lng": 26.555715
   },
   {
     "ID": 61,
@@ -919,7 +1161,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Adventure",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "BUF",
+    "Airport2": "ROC",
+    "lat": 43.653226,
+    "lng": -79.3831843
   },
   {
     "ID": 62,
@@ -934,7 +1180,11 @@ const data = [
     "Type4": "Bachelor",
     "Type5": "Adventure",
     "Type6": "Relaxing",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "LIS",
+    "Airport2": "CAT",
+    "lat": 38.7222524,
+    "lng": -9.1393366
   },
   {
     "ID": 63,
@@ -949,7 +1199,11 @@ const data = [
     "Type4": "Sightseeing",
     "Type5": "Bachelor",
     "Type6": "Family",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "CUN",
+    "Airport2": "MID",
+    "lat": 21.161908,
+    "lng": -86.8515279
   },
   {
     "ID": 64,
@@ -964,7 +1218,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Family",
     "Type6": "Sports",
-    "Type7": "Bachelor"
+    "Type7": "Bachelor",
+    "Airport1": "AEP",
+    "Airport2": "EZE",
+    "lat": -34.6036844,
+    "lng": -58.3815591
   },
   {
     "ID": 65,
@@ -979,7 +1237,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Party",
     "Type6": "Sports",
-    "Type7": "Bachelor"
+    "Type7": "Bachelor",
+    "Airport1": "CAI",
+    "Airport2": "HBE",
+    "lat": 30.0444196,
+    "lng": 31.2357116
   },
   {
     "ID": 66,
@@ -994,7 +1256,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "PUJ",
+    "Airport2": "SJU",
+    "lat": 18.58201,
+    "lng": -68.405473
   },
   {
     "ID": 67,
@@ -1009,7 +1275,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Party",
     "Type6": "Sports",
-    "Type7": "Bachelor"
+    "Type7": "Bachelor",
+    "Airport1": "PVG",
+    "Airport2": "SHA",
+    "lat": 31.298974,
+    "lng": 120.585289
   },
   {
     "ID": 68,
@@ -1024,7 +1294,11 @@ const data = [
     "Type4": "Sightseeing",
     "Type5": "Party",
     "Type6": "Sports",
-    "Type7": "Bachelor"
+    "Type7": "Bachelor",
+    "Airport1": "DJE",
+    "Airport2": "TIP",
+    "lat": 33.807598,
+    "lng": 10.845147
   },
   {
     "ID": 69,
@@ -1039,7 +1313,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Party",
     "Type6": "Sports",
-    "Type7": "Bachelor"
+    "Type7": "Bachelor",
+    "Airport1": "DEL",
+    "Airport2": "AGR",
+    "lat": 27.1766701,
+    "lng": 78.0080745
   },
   {
     "ID": 70,
@@ -1054,7 +1332,11 @@ const data = [
     "Type4": "Party",
     "Type5": "Bachelor",
     "Type6": "Sports",
-    "Type7": "Adventure"
+    "Type7": "Adventure",
+    "Airport1": "KRK",
+    "Airport2": "WAW",
+    "lat": 50.0646501,
+    "lng": 19.9449799
   },
   {
     "ID": 71,
@@ -1069,7 +1351,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Family",
     "Type6": "Sports",
-    "Type7": "Adventure"
+    "Type7": "Adventure",
+    "Airport1": "OTP",
+    "Airport2": "SOF",
+    "lat": 44.4267674,
+    "lng": 26.1025384
   },
   {
     "ID": 72,
@@ -1084,7 +1370,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "REP",
+    "Airport2": "PNH",
+    "lat": 13.3670968,
+    "lng": 103.8448134
   },
   {
     "ID": 73,
@@ -1099,7 +1389,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "JAI",
+    "Airport2": "DEL",
+    "lat": 26.912434,
+    "lng": 75.787271
   },
   {
     "ID": 74,
@@ -1114,7 +1408,11 @@ const data = [
     "Type4": "Sightseeing",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "HNL",
+    "Airport2": "OGG",
+    "lat": 21.31044,
+    "lng": -157.863901
   },
   {
     "ID": 75,
@@ -1129,7 +1427,11 @@ const data = [
     "Type4": "Sightseeing",
     "Type5": "Adventure",
     "Type6": "Party",
-    "Type7": "Bachelor"
+    "Type7": "Bachelor",
+    "Airport1": "BAH",
+    "Airport2": "DOH",
+    "lat": 26.2285161,
+    "lng": 50.5860497
   },
   {
     "ID": 76,
@@ -1144,7 +1446,11 @@ const data = [
     "Type4": "Sightseeing",
     "Type5": "Party",
     "Type6": "Sports",
-    "Type7": "Bachelor"
+    "Type7": "Bachelor",
+    "Airport1": "DMM",
+    "Airport2": "DOH",
+    "lat": 26.392667,
+    "lng": 49.977714
   },
   {
     "ID": 77,
@@ -1159,7 +1465,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "HAN",
+    "Airport2": "NNG",
+    "lat": 21.0277644,
+    "lng": 105.8341598
   },
   {
     "ID": 78,
@@ -1174,7 +1484,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Sightseeing",
     "Type6": "Party",
-    "Type7": "Bachelor"
+    "Type7": "Bachelor",
+    "Airport1": "BCN",
+    "Airport2": "TLS",
+    "lat": 42.506317,
+    "lng": 1.521835
   },
   {
     "ID": 79,
@@ -1189,7 +1503,11 @@ const data = [
     "Type4": "Party",
     "Type5": "Bachelor",
     "Type6": "Sports",
-    "Type7": "Adventure"
+    "Type7": "Adventure",
+    "Airport1": "NCE",
+    "Airport2": "",
+    "lat": 43.7101728,
+    "lng": 7.2619532
   },
   {
     "ID": 80,
@@ -1204,7 +1522,11 @@ const data = [
     "Type4": "Sports",
     "Type5": "Adventure",
     "Type6": "Party",
-    "Type7": "Bachelor"
+    "Type7": "Bachelor",
+    "Airport1": "ZRH",
+    "Airport2": "BSL",
+    "lat": 47.376887,
+    "lng": 8.541694
   },
   {
     "ID": 81,
@@ -1219,7 +1541,11 @@ const data = [
     "Type4": "Adventure",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "CGK",
+    "Airport2": "HLP",
+    "lat": -6.17511,
+    "lng": 106.865039
   },
   {
     "ID": 82,
@@ -1234,7 +1560,11 @@ const data = [
     "Type4": "Adventure",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "MNL",
+    "Airport2": "CRK",
+    "lat": 14.599512,
+    "lng": 120.984219
   },
   {
     "ID": 83,
@@ -1249,7 +1579,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Bachelor",
     "Type6": "Party",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "CNX",
+    "Airport2": "CEI",
+    "lat": 18.706064,
+    "lng": 98.981716
   },
   {
     "ID": 84,
@@ -1264,7 +1598,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "RAK",
+    "Airport2": "CMN",
+    "lat": 31.629472,
+    "lng": -7.981084
   },
   {
     "ID": 85,
@@ -1279,7 +1617,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Sightseeing",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "SSH",
+    "Airport2": "HRG",
+    "lat": 27.915817,
+    "lng": 34.32995
   },
   {
     "ID": 86,
@@ -1294,7 +1636,11 @@ const data = [
     "Type4": "Sightseeing",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "CDG",
+    "Airport2": "ORY",
+    "lat": 48.859276,
+    "lng": 2.598505
   },
   {
     "ID": 87,
@@ -1309,7 +1655,11 @@ const data = [
     "Type4": "Bachelor",
     "Type5": "Relaxing",
     "Type6": "Sports",
-    "Type7": "Adventure"
+    "Type7": "Adventure",
+    "Airport1": "FRA",
+    "Airport2": "MUC",
+    "lat": 50.110922,
+    "lng": 8.682127
   },
   {
     "ID": 88,
@@ -1324,7 +1674,11 @@ const data = [
     "Type4": "Sightseeing",
     "Type5": "Family",
     "Type6": "Party",
-    "Type7": "Bachelor"
+    "Type7": "Bachelor",
+    "Airport1": "AUH",
+    "Airport2": "DXB",
+    "lat": 24.453884,
+    "lng": 54.3773438
   },
   {
     "ID": 89,
@@ -1339,7 +1693,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Sightseeing",
     "Type6": "Sports",
-    "Type7": "Bachelor"
+    "Type7": "Bachelor",
+    "Airport1": "CXH",
+    "Airport2": "SEA",
+    "lat": 49.282729,
+    "lng": -123.120738
   },
   {
     "ID": 90,
@@ -1354,7 +1712,11 @@ const data = [
     "Type4": "Sightseeing",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "KWL",
+    "Airport2": "LZH",
+    "lat": 25.234479,
+    "lng": 110.179953
   },
   {
     "ID": 91,
@@ -1369,7 +1731,11 @@ const data = [
     "Type4": "Sightseeing",
     "Type5": "Bachelor",
     "Type6": "Sports",
-    "Type7": "Adventure"
+    "Type7": "Adventure",
+    "Airport1": "MEL",
+    "Airport2": "MEB",
+    "lat": -37.813628,
+    "lng": 144.963058
   },
   {
     "ID": 92,
@@ -1384,7 +1750,11 @@ const data = [
     "Type4": "Bachelor",
     "Type5": "Family",
     "Type6": "Sports",
-    "Type7": "Relaxing"
+    "Type7": "Relaxing",
+    "Airport1": "GIG",
+    "Airport2": "",
+    "lat": -22.9068467,
+    "lng": -43.1728965
   },
   {
     "ID": 93,
@@ -1399,7 +1769,11 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "RUH",
+    "Airport2": "HOF",
+    "lat": 24.7135517,
+    "lng": 46.6752957
   },
   {
     "ID": 94,
@@ -1414,7 +1788,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "AMM",
+    "Airport2": "TLV",
+    "lat": 31.945367,
+    "lng": 35.928372
   },
   {
     "ID": 95,
@@ -1429,7 +1807,11 @@ const data = [
     "Type4": "Adventure",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "MIR",
+    "Airport2": "TUN",
+    "lat": 35.825603,
+    "lng": 10.608395
   },
   {
     "ID": 96,
@@ -1444,7 +1826,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Adventure",
     "Type6": "Relaxing",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "KBP",
+    "Airport2": "IEV",
+    "lat": 50.4501,
+    "lng": 30.5234
   },
   {
     "ID": 97,
@@ -1459,7 +1845,11 @@ const data = [
     "Type4": "Party",
     "Type5": "Sightseeing",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "DXB",
+    "Airport2": "SHJ",
+    "lat": 25.346255,
+    "lng": 55.420932
   },
   {
     "ID": 98,
@@ -1474,7 +1864,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Bachelor",
     "Type6": "Party",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "CJU",
+    "Airport2": "PUS",
+    "lat": 33.489011,
+    "lng": 126.498302
   },
   {
     "ID": 99,
@@ -1489,7 +1883,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Bachelor",
     "Type6": "Party",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "KBV",
+    "Airport2": "HKT",
+    "lat": 8.0862997,
+    "lng": 98.9062835
   },
   {
     "ID": 100,
@@ -1504,7 +1902,11 @@ const data = [
     "Type4": "Sightseeing",
     "Type5": "Bachelor",
     "Type6": "Party",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "AER",
+    "Airport2": "TZX",
+    "lat": 41.180937,
+    "lng": 41.820819
   },
   {
     "ID": 101,
@@ -1519,7 +1921,11 @@ const data = [
     "Type4": "Sightseeing",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "NAS",
+    "Airport2": "ELH",
+    "lat": 25.047984,
+    "lng": -77.355413
   },
   {
     "ID": 102,
@@ -1534,7 +1940,11 @@ const data = [
     "Type4": "Party",
     "Type5": "Bachelor",
     "Type6": "Sightseeing",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "MLE",
+    "Airport2": "DRV",
+    "lat": 4.175496,
+    "lng": 73.509347
   },
   {
     "ID": 103,
@@ -1549,7 +1959,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Adventure",
     "Type6": "Sports",
-    "Type7": "Sightseeing"
+    "Type7": "Sightseeing",
+    "Airport1": "LCA",
+    "Airport2": "PFO",
+    "lat": 34.992284,
+    "lng": 34.014011
   },
   {
     "ID": 104,
@@ -1564,7 +1978,11 @@ const data = [
     "Type4": "Adventure",
     "Type5": "Sightseeing",
     "Type6": "Family",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "JMK",
+    "Airport2": "ATH",
+    "lat": 37.446735,
+    "lng": 25.328884
   },
   {
     "ID": 105,
@@ -1579,7 +1997,11 @@ const data = [
     "Type4": "Adventure",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "RHO",
+    "Airport2": "AYT",
+    "lat": 36.434053,
+    "lng": 28.217638
   },
   {
     "ID": 106,
@@ -1594,7 +2016,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "HER",
+    "Airport2": "CHQ",
+    "lat": 35.240117,
+    "lng": 24.809269
   },
   {
     "ID": 107,
@@ -1609,7 +2035,11 @@ const data = [
     "Type4": "Family",
     "Type5": "Bachelor",
     "Type6": "Party",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "HAV",
+    "Airport2": "VRA",
+    "lat": 23.1135925,
+    "lng": -82.3665956
   },
   {
     "ID": 108,
@@ -1624,7 +2054,11 @@ const data = [
     "Type4": "Adventure",
     "Type5": "Party",
     "Type6": "Bachelor",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "JTR",
+    "Airport2": "ATH",
+    "lat": 36.3931562,
+    "lng": 25.4615092
   },
   {
     "ID": 109,
@@ -1639,12 +2073,24 @@ const data = [
     "Type4": "Relaxing",
     "Type5": "Family",
     "Type6": "Sightseeing",
-    "Type7": "Sports"
+    "Type7": "Sports",
+    "Airport1": "IBZ",
+    "Airport2": "PMI",
+    "lat": 39.0200099,
+    "lng": 1.4821482
   }
 ];
 
+//HAVING ISSUES WITH CALLBACK
+// var coordinates;
+// getCoordinates("syndey", "australia", coordinates, setCoordinates);
+// console.log("these are the coordinates " + JSON.stringify(coordinates));
+
+// var airports = getAirport(coordinates);
+
 
 data.forEach((place)=> {
+  setTimeout(function(){
   console.log(place);
   var id = place.ID;
   var city = place.City;
@@ -1665,7 +2111,15 @@ data.forEach((place)=> {
   type.push(place.Type5);
   type.push(place.Type6);
   type.push(place.Type7);
-  console.log(type);
+  // console.log(type);
+  var coordinates = {
+    lat: place.lat,
+    lng: place.lng
+  };
+  var airports = [];
+  airports.push(place.Airport1);
+  airports.push(place.Airport2);
+
   const tmpPlace = new Destination({
     id: id,
     city: city,
@@ -1673,12 +2127,38 @@ data.forEach((place)=> {
     exotic: exotic,
     location: location,
     climate: climate,
-    type: type
+    type: type,
+    coordinates: coordinates,
+    airports: airports
   });
+  // const finalPlace = getAirport(city, coordinates, tmpPlace);
+  // console.log("these are the airports AFTER function: " + airports);
   Destination.create(tmpPlace, (err, docs)=>{
     if (err) {throw err;}
-
     mongoose.connection.close();
   });
-
+}, 1500);
 });
+
+// function getCoordinates(city, country, tmpCoordinates, callback) {
+//   var coordinates = {
+//     lat: Number,
+//     lng: Number
+//   };
+//
+//   const url = "https://maps.googleapis.com/maps/api/geocode/json?components=locality:"+city+"|country:"+country +"&key=AIzaSyCIItiTxhbvrYb-azJAsLehb8YJFoKYH84";
+//   request(url, (err, resp, body)=> {
+//      body = JSON.parse(body);
+//      console.log("this is the body: " + JSON.stringify(body.results[0].geometry.location.lat));
+//      if (err) {
+//        res.status(401).json({message: "error"});
+//       } else {
+//         coordinates.lat = body.results[0].geometry.location.lat;
+//         coordinates.lng = body.results[0].geometry.location.lng;
+//       }
+//       console.log("before exit: City: " + city + " - " + JSON.stringify(coordinates));
+//       callback(tmpCoordinates, coordinates);
+//
+//       });
+//
+// }

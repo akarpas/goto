@@ -14,6 +14,7 @@ import { ResultsComponent } from './results/results.component';
 import { FooterComponent } from './footer/footer.component';
 import { AgmCoreModule } from "angular2-google-maps/core";
 import { SessionService } from "./session.service";
+import { ExternalApisService } from "./external-apis.service";
 import { LoginFormComponent } from './login-form/login-form.component';
 
 
@@ -49,7 +50,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     ReactiveFormsModule
   ],
-  providers: [SessionService],
+  providers: [SessionService, ExternalApisService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

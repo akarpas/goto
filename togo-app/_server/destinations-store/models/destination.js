@@ -10,7 +10,12 @@ const destinationSchema = new Schema({
   exotic: Boolean,
   location: String,
   climate: String,
-  type: []
+  type: [],
+  coordinates: {
+    lat: Number,
+    lng: Number
+  },
+  airports: []
 });
 
 const Destination = mongoose.model("Destination", destinationSchema);

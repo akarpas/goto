@@ -19,6 +19,7 @@ authRoutes.post('/signup', (req, res, next) => {
   const postCode = req.body.postCode;
   const city = req.body.city;
   const country = req.body.country;
+  const country_loc = req.body.country_loc;
   const lat = Number(req.body.lat);
   const lng = Number(req.body.lng);
   const places = req.body.places;
@@ -47,6 +48,7 @@ authRoutes.post('/signup', (req, res, next) => {
       postCode: postCode,
       city: city,
       country: country,
+      country_loc: country_loc,
       lat: lat,
       lng: lng,
       places: places

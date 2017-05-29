@@ -15,12 +15,8 @@
           <input *ngIf="!this.session.isAuth" type="text" placeholder="or nickname, whatever rocks your boat..." id="nameField" name="name" [(ngModel)]="newSearch.name">
         </div>
         <div class="column">
-          <label for="cityField">Country</label>
-          <input type="text" placeholder="your base country" id="countryField" name="country" [(ngModel)]="newSearch.country">
-        </div>
-        <div class="column">
-          <label for="cityField">City</label>
-          <input type="text" placeholder="your base city" id="cityField" name="city" [(ngModel)]="newSearch.city">
+          <label for="cityCountryField">City and Country</label>
+          <input type="text" placeholder="your base city and country you are located" id="cityCountryField" name="cityCountry" #search [formControl]="searchControl" [(ngModel)]="newSearch.location">
         </div>
       </div>
       <div class="row">
@@ -98,7 +94,7 @@
           </div>
           <div class="column text-center">
             <label>
-              <input type="radio" class="checkbox-style" name="typeField" value="Partying" (change)="onSelectionChange('Partyinh')">
+              <input type="radio" class="checkbox-style" name="typeField" value="Party" (change)="onSelectionChange('Party')">
               <img class="radio-icon" src="./assets/images/party.png"><br>For Partying
             </label>
           </div>
