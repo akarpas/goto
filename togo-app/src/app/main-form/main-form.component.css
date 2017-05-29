@@ -84,10 +84,13 @@ label > input{ /* HIDE RADIO */
 }
 label > input + img{ /* IMAGE STYLES */
   cursor:pointer;
-  border:2px solid transparent;
+  border:2px solid #B89DC9;
+  border-radius: 15px;
+
 }
 label > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
   background-color: #B89DC9;
+  border:2px solid #72617D;
   border-radius: 15px;
 }
 

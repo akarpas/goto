@@ -7,6 +7,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth-routes');
+const queryRoutes = require('./routes/query-routes');
 const session    = require('express-session');
 const passport   = require('passport');
 const gotoApi = require('./routes/goto-api');
@@ -51,6 +52,7 @@ app.use(passport.session());
 
 app.use('/', authRoutes);
 app.use('/api', gotoApi);
+app.use('/query', queryRoutes);
 
 app.use((req, res, next) => {
   res.sendfile(__dirname + '/public/index.html');

@@ -18,6 +18,7 @@ export class SignupFormComponent implements OnInit {
     postCode: '',
     city: '',
     country: '',
+    country_loc: '',
     lat: 0,
     lng: 0,
     password: '',
@@ -64,12 +65,14 @@ export class SignupFormComponent implements OnInit {
           }
 
           // Location details
+          console.log(place.address_components);
           for (let i = 0; i < place.address_components.length; i++) {
             if (place.address_components[i].types[0] === 'postal_code') {
             this.signupInfo.postCode = place.address_components[i].long_name;
             }
             if (place.address_components[i].types[0] === 'country') {
             this.signupInfo.country = place.address_components[i].long_name;
+            this.signupInfo.country_loc = place.address_components[i].short_name;
             this.signupInfo.places[0].country = place.address_components[i].long_name;
             }
             if (place.address_components[i].types[0] === 'route') {
@@ -78,7 +81,7 @@ export class SignupFormComponent implements OnInit {
             if (place.address_components[i].types[0] === 'street_number') {
             this.signupInfo.streetN = place.address_components[i].long_name;
             }
-            if (place.address_components[i].types[0] === 'city') {
+            if (place.address_components[i].types[0] === 'locality') {
             this.signupInfo.city = place.address_components[i].long_name;
             this.signupInfo.places[0].city = place.address_components[i].long_name;
             }
@@ -89,7 +92,7 @@ export class SignupFormComponent implements OnInit {
           this.signupInfo.lng = place.geometry.location.lng();
           this.signupInfo.places[0].lat = Number(place.geometry.location.lat());
           this.signupInfo.places[0].lng = Number(place.geometry.location.lng());
-          console.log(place);
+          console.log(this.signupInfo);
           console.log("PLACES: "+ JSON.stringify(this.signupInfo.places));
         });
       });
