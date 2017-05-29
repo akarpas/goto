@@ -54,8 +54,10 @@ export class MainFormComponent implements OnInit {
     if (this.session.isAuth) {
       var currentUser = this.session.getUserFromLocal();
       this.newSearch.name = currentUser.name;
-      this.newSearch.city = currentUser.city;
-      this.newSearch.country = currentUser.country;
+
+      // this.newSearch.location = currentUser.city + ", " + currentUser.country;
+
+      // this.newSearch.country = currentUser.country;
       console.log(this.userName)
     }
 
@@ -114,9 +116,9 @@ export class MainFormComponent implements OnInit {
 
   getAirport() {
     console.log("are we here?");
-    const API_AMADEUS = "uCpRjLKJEQq9FJID9ZRu2Vs9Hm5mrAVA&latitude";
+    const API_AMADEUS = "XXXXX";
     let airport;
-    const url = "https://api.sandbox.amadeus.com/v1.2/airports/nearest-relevant?apikey=uCpRjLKJEQq9FJID9ZRu2Vs9Hm5mrAVA&latitude&latitude=" + Number(this.newSearch.origin_lat) + "&longitude=" + Number(this.newSearch.origin_lng);
+    const url = "https://api.sandbox.amadeus.com/v1.2/airports/nearest-relevant?apikey="+API_AMADEUS+"&latitude&latitude=" + Number(this.newSearch.origin_lat) + "&longitude=" + Number(this.newSearch.origin_lng);
     console.log(url);
     return this.http.get(url)
       .map((response) => response.json())

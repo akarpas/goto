@@ -2141,24 +2141,5 @@ data.forEach((place)=> {
 });
 
 // function getCoordinates(city, country, tmpCoordinates, callback) {
-//   var coordinates = {
-//     lat: Number,
-//     lng: Number
-//   };
-//
-//   const url = "https://maps.googleapis.com/maps/api/geocode/json?components=locality:"+city+"|country:"+country +"&key=AIzaSyCIItiTxhbvrYb-azJAsLehb8YJFoKYH84";
-//   request(url, (err, resp, body)=> {
-//      body = JSON.parse(body);
-//      console.log("this is the body: " + JSON.stringify(body.results[0].geometry.location.lat));
-//      if (err) {
-//        res.status(401).json({message: "error"});
-//       } else {
-//         coordinates.lat = body.results[0].geometry.location.lat;
-//         coordinates.lng = body.results[0].geometry.location.lng;
-//       }
-//       console.log("before exit: City: " + city + " - " + JSON.stringify(coordinates));
-//       callback(tmpCoordinates, coordinates);
-//
-//       });
-//
+
 // }

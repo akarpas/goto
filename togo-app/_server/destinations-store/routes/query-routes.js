@@ -67,9 +67,9 @@ queryRoutes.post('/search',(req, res, next)=>{
       console.log("this is choice " + i + ": " + result.city);
       i++;
     });
-  });
+    checkFlights(query, tmpResults);
 
-  checkFlights(query, tmpResults);
+  });
 
 
 });
@@ -77,7 +77,8 @@ queryRoutes.post('/search',(req, res, next)=>{
 function checkFlights(query, tmpResults) {
 
   console.log("in check flights function");
-  const BASE_URL = "http://partners.api.skyscanner.net/apiservices/pricing/v1.0";
+  console.log("temp results: " + tmpResults);
+  console.log("query: " + query);
   const header = "Content-Type: application/x-www-form-urlencoded";
   const country = query.country_loc;
   const currency = "EUR";
@@ -87,9 +88,14 @@ function checkFlights(query, tmpResults) {
   const outDate = query.startDate;
   const inDate = query.endDate;
   const adults = 1;
-  const API_KEY = "an187693238719378470318126148771";
+  const API_KEY = "SKYSCANNERKEY";
+  var x = 1;
 
-
+  tmpResults.forEach(function(result){
+    const destination = result.airports[0];
+    console.log("Airport " + x + " " + destination);
+    x++;
+  });
   // curl "http://partners.api.skyscanner.net/apiservices/pricing/v1.0"
   //   -X POST
   //   -H "Content-Type: application/x-www-form-urlencoded"
@@ -105,6 +111,24 @@ function checkFlights(query, tmpResults) {
   //   &children=0
   //   &infants=0
   //   &apikey=prtl6749387986743898559646983194'
+
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+    const url = "http://partners.api.skyscanner.net/apiservices/pricing/v1.0"+city+"|country:"+country +"&key=AIzaSyCIItiTxhbvrYb-azJAsLehb8YJFoKYH84";
+    request(url, (err, resp, body)=> {
+       body = JSON.parse(body);
+       console.log("this is the body: " + JSON.stringify(body.results[0].geometry.location.lat));
+       if (err) {
+         res.status(401).json({message: "error"});
+        } else {
+          coordinates.lat = body.results[0].geometry.location.lat;
+          coordinates.lng = body.results[0].geometry.location.lng;
+        }
+        console.log("before exit: City: " + city + " - " + JSON.stringify(coordinates));
+        callback(tmpCoordinates, coordinates);
+
+        });
 
 }
 
