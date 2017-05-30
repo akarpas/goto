@@ -16,6 +16,7 @@ queryRoutes.post('/search',(req, res, next)=>{
 
   let resultsIndex = 0;
   let tmpResults = [];
+  let finalResults;
 
   Destination.find((err,destinationsList)=>{
     if(err) {
@@ -67,29 +68,35 @@ queryRoutes.post('/search',(req, res, next)=>{
       console.log("this is choice " + i + ": " + result.city);
       i++;
     });
-    checkFlights(query, tmpResults);
+    finalResults = checkFlightsMaxPrice(query, tmpResults);
 
   });
 
+  res.json(finalResults);
 
 });
 
-function checkFlights(query, tmpResults) {
+function checkFlightsMaxPrice(query, tmpResults) {
 
-  var destinationsMatched = [];
-  console.log("in check flights function");
-  console.log("temp results: " + tmpResults);
-  console.log("query: " + query);
-  const header = "Content-Type: application/x-www-form-urlencoded";
+  var tmpResults2 = []; // This will include the filtered out result from
+  // tmpResults, where the destinations are filtered by MAXPRICE
+  var tmpResults3 = []; // This will include the filtered out result from
+  // tmpResults2, where the destinations are filtered by Duration
+  var destinationsMatched = []; // This will hold all the destinations returned
+  // by Amadeus for the Max Price criteria.
+  var searchResults = []; // array to hold all the search results received from
+  // first API request to avoid repetition of requests
+  console.log("This is the query: " + query);
   const country = query.country_loc;
   const currency = "EUR";
-  const locale = "en_ES";
   const origin = query.origin_airport;
-  // const destination =
   const outDate = query.startDate;
   const inDate = query.endDate;
   const adults = 1;
+  const numberOfResults = 3;
 
+  // Switch to turn value selected through frontend (the main form) to
+  // actual number and save in totalBudget and flightCost
   var flightCost = 0;
   var totalBudget = 0;
   switch (query.budget) {
@@ -115,36 +122,36 @@ function checkFlights(query, tmpResults) {
     break;
   }
 
+  // Switch to turn value selected through frontend (the main form) to
+  // actual number and save as hours and as milliseconds
   var durationHours = 0;
   var durationMilliSeconds = 0;
-  switch (query.budget) {
+  switch (query.duration) {
     case "6":
       durationHours = 6;
       durationMilliSeconds = (6*60*60*1000);
     break;
     case "12":
-      durationHours = (4000 * (25/100));
+      durationHours = 12;
       durationMilliSeconds = (12*60*60*1000);
     break;
     case "24":
-      durationHours = (6000 * (25/100));
+      durationHours = 24;
       durationMilliSeconds = (24*60*60*1000);
     break;
   }
-  const API_KEY = "amadeus key here"; // ***************
-  var x = 1;
+  const API_KEY = "key"; // *APIKEY*
 
   tmpResults.forEach(function(item){
     const destination = item.airports[0];
     // console.log("Airport " + x + " " + destination);
-    x++;
-    const url = "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey="+API_KEY+"&origin="+origin+"&destination="+destination+"&departure_date=" + outDate + "&return_date=" + inDate + "&adults=1&max_price=" + 300 + "&currency=EUR&number_of_results=3";
+    const url = "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey="+API_KEY+"&origin="+origin+"&destination="+destination+"&departure_date=" + outDate + "&return_date=" + inDate + "&adults=1&max_price=" + 300 + "&currency=" + currency + "&number_of_results=" + numberOfResults;
     console.log("this is the final url: "+ url);
-    let results;
 
     request.get(url).then(function(result){
       console.log("this is the result bro: " + result);
        results = JSON.parse(result);
+       searchResults.push(results);
 
         if (results.results !== undefined) {
           var index = results.results[0].itineraries[0].outbound.flights.length;
@@ -155,7 +162,6 @@ function checkFlights(query, tmpResults) {
     });
 
     setTimeout(function(){
-      var tmpResults2 = [];
       tmpResults.forEach(function(item){
         if (destinationsMatched.indexOf(item.airports[0]) !== -1) {
           tmpResults2.push(item);
@@ -164,9 +170,61 @@ function checkFlights(query, tmpResults) {
       console.log("these are the matched destinations: " + destinationsMatched);
       tmpResults2.forEach(function(item){
       });
-    },12000);
+    },11000);
+
+    setTimeout(function(){
+      tmpResults3 = checkFlightsDuration(query, tmpResults2, searchResults, durationHours, durationMilliSeconds);
+      return tmpResults3;
+    },11500);
 
 }
 
+function checkFlightsDuration(query, tmpResults2, searchResults, durationHours, durationMilliSeconds) {
+
+  var tmpResults3 = [];
+  var destinationsMatched = []; // This will hold all the filtered destinations
+  // for the Duration criteria.
+  console.log("this is the duration Hours passed from function: " + durationHours);
+  searchResults.forEach(function(item){
+    for (var i = 0; i<3; i++) {
+      var lastIndex = (item.results[i].itineraries[0].outbound.flights.length - 1);
+      var destination = item.results[i].itineraries[0].outbound.flights[lastIndex].destination.airport;
+      var departs = item.results[i].itineraries[0].outbound.flights[0].departs_at;
+      var arrives = item.results[i].itineraries[0].outbound.flights[lastIndex].arrives_at;
+      var departsFinal = new Date(departs).getTime();
+      var arrivesFinal = new Date(arrives).getTime();
+
+      console.log("departsFinal: " + departsFinal);
+      console.log("arrivesFinal: " + arrivesFinal);
+      var calcDuration = arrivesFinal - departsFinal;
+
+      var calcDurationHours = Math.floor(calcDuration/1000/60/60);
+      console.log("this is the duration in hours: " + calcDurationHours );
+
+      if ( calcDurationHours <= durationHours) {
+        destinationsMatched.push(destination);
+        console.log("destination pushed: " + destination);
+        console.log("array after push: " + destinationsMatched);
+        i=3;
+      }
+    }
+
+
+
+  });
+  tmpResults2.forEach(function(item){
+    if (destinationsMatched.indexOf(item.airports[0]) !== -1) {
+      tmpResults3.push(item);
+    }
+  });
+  console.log("these are the FINAL matched destinations: " + destinationsMatched);
+  tmpResults3.forEach(function(item){
+    console.log(item.city);
+  });
+
+
+  return tmpResults3;
+
+}
 
 module.exports = queryRoutes;
