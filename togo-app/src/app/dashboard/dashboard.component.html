@@ -28,6 +28,8 @@
       <p><u>Visited: </u></p>
       <div class="cell-list">
         <br>
+        <img src="./assets/images/pinSmaller.png" alt="">
+
         <ul>
           <li *ngFor="let place of user.places"> {{place.city}}, {{place.country}} - <a href="#"><strong><img class="delete-icon" src="../assets/images/delete.svg" alt=""></strong></a></li>
         </ul>
@@ -38,8 +40,9 @@
       <p><u>Wish List: </u></p>
       <div class="cell-list">
         <br>
+        <img src="./assets/images/pinheart.png" alt="">
         <ul>
-
+          <li *ngFor="let place of user.wishlist"> {{place.city}}, {{place.country}} - <a href="#"><strong><img class="delete-icon" src="../assets/images/delete.svg" alt=""></strong></a></li>
         </ul>
         <br><br>
       </div>
@@ -47,10 +50,14 @@
  </div><br><br>
  <h3> Your Pins </h3>
  <hr class="short-line"><br>
+ <div class="row centered destination-label">
+   {{selection}}
+  </div>
  <div class="row">
    <div class="map-container">
        <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
-       <sebm-google-map-marker *ngFor="let place of user.places" [latitude]="place.lat" [longitude]="place.lng" [iconUrl]="'./assets/images/pinSmaller.png'"></sebm-google-map-marker>
+       <sebm-google-map-marker *ngFor="let place of user.places" [latitude]="place.lat" [longitude]="place.lng" [iconUrl]="'./assets/images/pinSmaller.png'" (markerClick)="showTarget(place)"></sebm-google-map-marker>
+       <sebm-google-map-marker *ngFor="let place of user.wishlist" [latitude]="place.lat" [longitude]="place.lng" [iconUrl]="'./assets/images/pinheart.png'" (markerClick)="showTarget(place)"></sebm-google-map-marker>
      </sebm-google-map>
    </div>
 

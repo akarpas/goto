@@ -106,8 +106,20 @@ label > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
   width: 250px;
 }
 
+.spinner-font {
+  font-size: 70px;
+  -webkit-animation: rotation 2s infinite linear;
 
+}
 
+@-webkit-keyframes rotation {
+		from {
+				-webkit-transform: rotate(0deg);
+		}
+		to {
+				-webkit-transform: rotate(359deg);
+		}
+}
 
 /* Larger than mobile screen */
 @media (max-width: 900px) {

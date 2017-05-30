@@ -10,11 +10,14 @@
 }
 
 .map-container {
-
   border-radius: 25px;
   margin-left: 20px;
   height: 500px;
   width:100%;
+}
+
+.destination-label {
+  font-size: 22px;
 }
 
 sebm-google-map {

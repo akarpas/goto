@@ -7,11 +7,11 @@ const amadeus = require("../helpers/amadeus_api");
 const queryRoutes = express.Router();
 const https = require('https');
 const request = require('request-promise');
-
+const async = require('async');
 
 // Code here //
 queryRoutes.post('/search',(req, res, next)=>{
-  console.log("req: " + JSON.stringify(req.body));
+  // console.log("req: " + JSON.stringify(req.body));
   let query = req.body;
 
   let resultsIndex = 0;
@@ -58,25 +58,28 @@ queryRoutes.post('/search',(req, res, next)=>{
         }
       });
     }
+
     console.log("this is the resultsIndex: " + resultsIndex);
     console.log(tmpResults.length);
     if (tmpResults.length > 20) {
       tmpResults.splice(20, tmpResults.length-1);
     }
-    let i = 1;
-    tmpResults.forEach(function(result) {
-      console.log("this is choice " + i + ": " + result.city);
-      i++;
-    });
-    finalResults = checkFlightsMaxPrice(query, tmpResults);
 
+    tmpResults.forEach(function(result, index) {
+      console.log("this is choice " + index + ": " + result.city);
+    });
+
+    checkFlightsMaxPrice(query, tmpResults, (finalResults)=>{
+      console.log("finalResults");
+      res.json(JSON.stringify(finalResults));
+    });
   });
 
-  res.json(finalResults);
+
 
 });
 
-function checkFlightsMaxPrice(query, tmpResults) {
+function checkFlightsMaxPrice(query, tmpResults, cb ) {
 
   var tmpResults2 = []; // This will include the filtered out result from
   // tmpResults, where the destinations are filtered by MAXPRICE
@@ -139,43 +142,53 @@ function checkFlightsMaxPrice(query, tmpResults) {
       durationHours = 24;
       durationMilliSeconds = (24*60*60*1000);
     break;
+    case "48":
+      durationHours = 48;
+      durationMilliSeconds = (48*60*60*1000);
+    break;
   }
-  const API_KEY = "key"; // *APIKEY*
+  const API_KEY = "uCpRjLKJEQq9FJID9ZRu2Vs9Hm5mrAVA"; // *APIKEY*
 
-  tmpResults.forEach(function(item){
+  console.log(`it should enter ${tmpResults.length}`);
+
+  async.each(tmpResults, (item, callback)=>{
+
     const destination = item.airports[0];
     // console.log("Airport " + x + " " + destination);
-    const url = "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey="+API_KEY+"&origin="+origin+"&destination="+destination+"&departure_date=" + outDate + "&return_date=" + inDate + "&adults=1&max_price=" + 300 + "&currency=" + currency + "&number_of_results=" + numberOfResults;
-    console.log("this is the final url: "+ url);
-
-    request.get(url).then(function(result){
-      console.log("this is the result bro: " + result);
-       results = JSON.parse(result);
-       searchResults.push(results);
-
+    const url = "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey="+API_KEY+"&origin="+origin+"&destination="+destination+"&departure_date=" + outDate + "&return_date=" + inDate + "&adults=1&max_price=" + flightCost + "&currency=" + currency + "&number_of_results=" + numberOfResults;
+    // console.log("this is the final url: "+ url);
+    request.get(url)
+      .then((result)=>{
+        console.log('item.city: ', item.city);
+        // console.log("this is the result bro: " + result);
+        console.log('api call for item.city: ', item.city);
+        results = JSON.parse(result);
+        console.log('api call result: ', result.results !== undefined ? result.results : 'undefined' );
+        searchResults.push(results);
         if (results.results !== undefined) {
           var index = results.results[0].itineraries[0].outbound.flights.length;
           console.log("this is the index: " + index);
           destinationsMatched.push(results.results[0].itineraries[0].outbound.flights[index-1].destination.airport);
         }
-    });
-    });
+        callback();
+      })
+      .catch((err) => {
 
-    setTimeout(function(){
+        console.log(`api call fails for ${item.city} -> ${err}`);
+        callback();
+      });
+  }, (err) => {
+    if( err ) {
+      console.log(`error!!!!`, err);
+    } else {
       tmpResults.forEach(function(item){
         if (destinationsMatched.indexOf(item.airports[0]) !== -1) {
           tmpResults2.push(item);
         }
       });
-      console.log("these are the matched destinations: " + destinationsMatched);
-      tmpResults2.forEach(function(item){
-      });
-    },11000);
-
-    setTimeout(function(){
-      tmpResults3 = checkFlightsDuration(query, tmpResults2, searchResults, durationHours, durationMilliSeconds);
-      return tmpResults3;
-    },11500);
+      cb(checkFlightsDuration(query, tmpResults2, searchResults, durationHours, durationMilliSeconds));
+    }
+  });
 
 }
 
@@ -187,6 +200,7 @@ function checkFlightsDuration(query, tmpResults2, searchResults, durationHours, 
   console.log("this is the duration Hours passed from function: " + durationHours);
   searchResults.forEach(function(item){
     for (var i = 0; i<3; i++) {
+      if (item.results !== undefined) {
       var lastIndex = (item.results[i].itineraries[0].outbound.flights.length - 1);
       var destination = item.results[i].itineraries[0].outbound.flights[lastIndex].destination.airport;
       var departs = item.results[i].itineraries[0].outbound.flights[0].departs_at;
@@ -207,6 +221,7 @@ function checkFlightsDuration(query, tmpResults2, searchResults, durationHours, 
         console.log("array after push: " + destinationsMatched);
         i=3;
       }
+    }
     }
 
 

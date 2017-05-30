@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
   public longitude: number;
   public zoom: number;
   public searchControl: FormControl;
+  public selection: string;
 
   user: any = {};
   place: any = {};
@@ -97,12 +98,10 @@ export class DashboardComponent implements OnInit {
         });
       });
     });
-
+    this.zoom = 2;
     this.route.params.subscribe(params => {
       this.getUserDetails(params['id']);
     });
-    this.zoom = 2;
-
 
   }
 
@@ -116,13 +115,15 @@ export class DashboardComponent implements OnInit {
       });
   };
 
+  showTarget(place) {
+    this.selection = place.city + ", " + place.country;
+  }
+
   addPlace() {
     console.log("this is the new place: " + this.newPlace);
     console.log("this is the user ID: " + this.userId);
     this.session.edit(this.newPlace, this.userId)
       .subscribe((place)=>{
-        this.newPlace.city = "";
-        this.newPlace.country = "";
         this.getUserDetails(this.userId);
       });
   };
