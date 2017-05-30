@@ -45,7 +45,7 @@ const routes: Routes = [
   ],
   imports: [
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyCIVbL2etNLl26Q691OsHLCLluHidnXGlk", // *APIKEY*
+      apiKey: "google", // *APIKEY*
       libraries: ["places"]
     }),
     BrowserModule,

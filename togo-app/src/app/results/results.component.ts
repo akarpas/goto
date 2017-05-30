@@ -5,7 +5,9 @@ import { Router } from "@angular/router";
 import { ExternalApisService } from "../external-apis.service";
 import { SessionService} from "../session.service";
 import { ActivatedRoute } from "@angular/router";
-
+import { HttpModule } from '@angular/http';
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-results',
@@ -34,7 +36,8 @@ export class ResultsComponent implements OnInit {
     private ngZone: NgZone,
     private apiSession: ExternalApisService,
     private route: ActivatedRoute,
-    private session: SessionService
+    private session: SessionService,
+    private http: Http
   ) { }
 
   ngOnInit() {
@@ -72,6 +75,16 @@ export class ResultsComponent implements OnInit {
   }
 
   showDetails(result) {
+    // const APIKEY = "KEY";
+    // var url;
+    // var photoReference;
+    // var tmpResponse;
+    // url = "http://maps.googleapis.com/maps/api/place/textsearch/json?query=" + result.city + "&key="+APIKEY;
+    // tmpResponse = this.getPhotoReference(url).subscribe();
+    // console.log(tmpResponse)
+    // photoReference = tmpResponse.results[0].photos[0].photo_reference;
+    // console.log(photoReference);
+
     this.detailsOn = true;
     this.showResult = result;
     console.log(this.showResult);
@@ -99,4 +112,11 @@ export class ResultsComponent implements OnInit {
         this.getUserDetails(this.userId);
       });
   }
+
+  // getPhotoReference(url) {
+  //   let headers = new Headers({ 'Content-Type': 'application/json' });
+  //   let options = new RequestOptions({ headers: headers });
+  //   return this.http.get(url,options)
+  //     .map((response) => response.json())
+  // }
 }

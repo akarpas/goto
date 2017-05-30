@@ -1,20 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
-/*body {
-  background-image: url('../src/assets/images/original-4.jpg') !important;
+body {
+  background-image: url('../src/assets/images/tropical.jpg') !important;
   background-position: -100px -325px;
   background-size: auto;
   background-repeat: no-repeat;
   background-color: white;
   background-attachment: fixed;
-}*/
+}
 
-body {
+/*body {
   background-image: url('../src/assets/images/test.gif') !important;
   background-size: cover;
   background-repeat: no-repeat;
   background-color: white;
   background-attachment: fixed;
-}
+}*/
 
 /*body {
   background-image: url('../src/assets/images/back-scroll.jpg') !important;
