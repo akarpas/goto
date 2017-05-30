@@ -27,8 +27,9 @@ const userSchema = new Schema({
   wishlist: [
     {
       city: String,
-      lat: String,
-      lng: String
+      country: String,
+      lat: Number,
+      lng: Number
     }
   ]
 },{

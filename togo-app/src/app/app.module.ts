@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+
 import { AppComponent } from './app.component';
 import { MainFormComponent } from './main-form/main-form.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -16,6 +17,8 @@ import { AgmCoreModule } from "angular2-google-maps/core";
 import { SessionService } from "./session.service";
 import { ExternalApisService } from "./external-apis.service";
 import { LoginFormComponent } from './login-form/login-form.component';
+import { DestinationComponent } from './destination/destination.component';
+
 
 
 const routes: Routes = [
@@ -37,18 +40,19 @@ const routes: Routes = [
     DashboardComponent,
     ResultsComponent,
     FooterComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    DestinationComponent,
   ],
   imports: [
     AgmCoreModule.forRoot({
-      apiKey: "key google", // *APIKEY*
+      apiKey: "AIzaSyCIVbL2etNLl26Q691OsHLCLluHidnXGlk", // *APIKEY*
       libraries: ["places"]
     }),
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [SessionService, ExternalApisService],
   bootstrap: [AppComponent]

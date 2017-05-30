@@ -84,4 +84,37 @@ router.put('/users/:user_id', (req, res, next) => {
     });
 });
 
+router.put('/users/wishlist/:user_id', (req, res, next) => {
+  console.log("THIS IS REQ: ",req);
+  console.log("THIS WORKS!");
+
+  User.findById(req.params.user_id, (err,user)=>{
+      if (err) {
+        res.status(500).json({message: err});
+      } else {
+        var index = user.places.length;
+        var wishPlace = {
+          city: req.body.city,
+          country: req.body.country,
+          lat: Number(req.body.coordinates.lat),
+          lng: Number(req.body.coordinates.lng)
+        };
+        console.log("Wish place before adding to wishlist: " + JSON.stringify(wishPlace));
+        user.wishlist.push(wishPlace);
+        const newUser = user;
+        User.findByIdAndUpdate(req.params.user_id, newUser, (err) => {
+          if (err) {
+            res.json(err);
+            return;
+          }
+
+          res.json({
+            message: 'User updated successfully'
+          });
+        });
+			}
+    });
+});
+
+
 module.exports = router;

@@ -9,6 +9,49 @@
   border: 1px solid lightgray;
 }
 
+.column-text {
+  width: auto;
+}
+
+.column-bars {
+  width: auto;
+}
+
+.list-cell {
+  text-align: left;
+  font-size: 16px;
+  line-height: 18px;
+  padding-left: 30px;
+}
+
+.icon_wishlist {
+  height: 40px;
+}
+
+.icon-bar {
+  width: 75%;
+}
+
+li {
+  list-style: none;
+}
+
+.map-container {
+  border-radius: 25px;
+  margin-left: 20px;
+  height: 400px;
+  width: 75%;
+  padding: 5px;
+
+}
+
+sebm-google-map {
+  border-radius: 25px;
+  margin: 0 auto;
+  height: 400px;
+  width: 100%;
+}
+
 #sample {
   border-radius: 20px;
 }
@@ -111,12 +154,42 @@ label {
     border-radius: 20px;
   }
 
+  .map-container {
+    width: 100%;
+  }
+
+  sebm-google-map {
+    width: 100%;
+  }
+
+  .ratings {
+    flex-flow: row;
+  }
+
   .info-cell {
     width: 100%;
+    margin-left: 18px;
+    margin-top: 5px;
+  }
+
+  .list-cell {
+    width: 100px;
   }
 
   .container-fluid {
     min-width: 90%;
+  }
+
+  .icon-bar {
+    width: 50%;
+  }
+
+  .column-text {
+    font-size: 14px;
+  }
+
+  .column-bars {
+    width: 250px;
   }
 
   p {

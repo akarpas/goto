@@ -120,4 +120,18 @@ export class SessionService implements CanActivate {
       .map((res) => res.json())
       .catch(this.handleError);
   }
+
+  editWishlist(place, id) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.put(`http://localhost:3000/api/users/wishlist/${id}`,place, options)
+      .map((res) => res.json())
+      .catch(this.handleError);
+  }
+
+  remove(place, id) {
+    return this.http.delete(`http://localhost:3000/api/users/wishlist/${id}`,place)
+      .map((res) => res.json());
+  }
 }

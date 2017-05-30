@@ -1,4 +1,5 @@
 <div class="container-fluid container-bckg">
+  <div *ngIf="!loading">
   <h3>
     What's your feeling?
   </h3>
@@ -11,18 +12,18 @@
       <div class="row">
         <div class="column">
           <label for="nameField">Name</label>
-          <input *ngIf="this.session.isAuth" type="text" placeholder="TEST" id="nameField" name="name" [(ngModel)]="newSearch.name">
-          <input *ngIf="!this.session.isAuth" type="text" placeholder="or nickname, whatever rocks your boat..." id="nameField" name="name" [(ngModel)]="newSearch.name">
+          <input *ngIf="this.session.isAuth" type="text" placeholder="TEST" id="nameField" name="name" [(ngModel)]="newSearch.name" required>
+          <input *ngIf="!this.session.isAuth" type="text" placeholder="or nickname, whatever rocks your boat..." id="nameField" name="name" [(ngModel)]="newSearch.name" required>
         </div>
         <div class="column">
           <label for="cityCountryField">City and Country</label>
-          <input type="text" placeholder="your base city and country you are located" id="cityCountryField" name="cityCountry" #search [formControl]="searchControl" [(ngModel)]="newSearch.location">
+          <input type="text" placeholder="your base city and country you are located" id="cityCountryField" name="cityCountry" #search [formControl]="searchControl" [(ngModel)]="newSearch.location" required>
         </div>
       </div>
       <div class="row">
         <div class="column">
           <label for="peopleField">How many people?</label>
-          <select id="peopleField" name="people" [(ngModel)]="newSearch.people">
+          <select id="peopleField" name="people" [(ngModel)]="newSearch.people" required>
             <option value="1" selected>loner and loving it (1)</option>
             <option value="2">just two (cough cough) (2)</option>
             <option value="3">the musketeers (3)</option>
@@ -33,7 +34,7 @@
         </div>
         <div class="column">
           <label for="budgetField">What's the budget?</label>
-          <select id="budgetField" name="budget" [(ngModel)]="newSearch.budget">
+          <select id="budgetField" name="budget" [(ngModel)]="newSearch.budget" required>
             <option value="2000">kind of stingy (up to 2,000 EUR)</option>
             <option value="4000">saved up (up to 4,000 EUR)</option>
             <option value="6000">got some spare cash (up to 6,000 EUR)</option>
@@ -43,10 +44,11 @@
         </div>
         <div class="column">
           <label for="travelField">Travelling duration?</label>
-          <select id="travelField" name="duration" [(ngModel)]="newSearch.duration">
+          <select id="travelField" name="duration" [(ngModel)]="newSearch.duration" required>
             <option value="6">short and sweet (up to 6 hours one way)</option>
             <option value="12">somewhere in the middle (up to 12 hours one way)</option>
             <option value="24">wanna go the distance (up to 24 hours one way)</option>
+            <option value="48">got lots of time baby (up to 48 hours one way)</option>
           </select>
         </div>
       </div><br>
@@ -54,11 +56,11 @@
         <div class="row">
           <div class="column">
             <label for="startField">Start Date</label>
-            <input type="date" class="date-style" placeholder="start date" id="startField" name="startDate" [(ngModel)]="newSearch.startDate">
+            <input type="date" class="date-style" placeholder="start date" id="startField" name="startDate" [(ngModel)]="newSearch.startDate" required>
           </div>
           <div class="column">
             <label for="endField">End Date</label>
-            <input type="date" class="date-style" placeholder="end date" id="endField" name="endDate" [(ngModel)]="newSearch.endDate">
+            <input type="date" pattern="\d{1,2}/\d{1,2}/\d{4}" class="date-style" placeholder="end date" id="endField" required name="endDate" [(ngModel)]="newSearch.endDate" >
           </div>
         </div><br>
         <div class="row centered">
@@ -118,4 +120,9 @@
       <input class="button-primary" type="submit" value="Go!" (click)="submitForm()">
     </fieldset>
   </form>
+    </div>
+    <div *ngIf="loading">
+      <h3>We will come back to you shortly!</h3>
+        <i class="fa fa-spinner spinner-font"></i>
+    </div>
 </div>

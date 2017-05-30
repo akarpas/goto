@@ -7,6 +7,8 @@ import { FormControl } from "@angular/forms";
 import { HttpModule } from '@angular/http';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { Router } from "@angular/router";
+
 
 
 @Component({
@@ -36,6 +38,9 @@ export class MainFormComponent implements OnInit {
   userName: string;
   userCity: string;
   userCountry: string;
+  error: string;
+  loading: boolean = false;
+
   public searchControl: FormControl;
 
   @ViewChild("search")
@@ -47,7 +52,8 @@ export class MainFormComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private route: ActivatedRoute,
-    private http: Http
+    private http: Http,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -109,14 +115,17 @@ export class MainFormComponent implements OnInit {
   }
 
   submitForm() {
+    this.loading = true;
     // console.log(this.newSearch);
     console.log("ORIGIN AIRPORT: " + this.newSearch.origin_airport);
-    this.apiSession.handleQuery(this.newSearch).subscribe(result=>{console.log(result)});
+    this.apiSession.handleQuery(this.newSearch).subscribe(result=>{
+      this.router.navigate(['/results']);
+    });
 
   }
 
   getAirport() {
-    const API_AMADEUS = "key"; // *APIKEY*
+    const API_AMADEUS = "uCpRjLKJEQq9FJID9ZRu2Vs9Hm5mrAVA"; // *APIKEY*
     let airport;
     const url = "https://api.sandbox.amadeus.com/v1.2/airports/nearest-relevant?apikey="+API_AMADEUS+"&latitude&latitude=" + Number(this.newSearch.origin_lat) + "&longitude=" + Number(this.newSearch.origin_lng);
     console.log(url);

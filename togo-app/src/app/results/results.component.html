@@ -3,14 +3,45 @@
     GoTo Suggests:
   </h3>
     <hr class="short-line"><br>
-
+<p>Select a destination on the Map for more details</p>
  <div class="row">
-   <div class="column map-cell">
-    <img id="sample" src="../assets/images/sample.png" alt="">
+   <div class="map-container">
+     <input type="hidden" name="hidden" value="hidden" #search [formControl]="searchControl"/>
+       <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+         <sebm-google-map-marker *ngFor="let result of results" [latitude]="result.coordinates.lat" [longitude]="result.coordinates.lng" [iconUrl]="'./assets/images/pin3small.png'" (markerClick)="showDetails(result)"></sebm-google-map-marker>
+
+     </sebm-google-map>
    </div>
    <div class="column info-cell">
      <br>
-    <h3>Select a destination on the Map for more details</h3>
+    <div class="column" *ngIf="detailsOn">
+      <strong>{{showResult.city}}, {{showResult.country}} </strong> <br>
+      Location: {{showResult.location}}<br>
+        Temperature: {{showResult.climate}}<br><br>
+        <div class="row ratings">
+          <div class="column list-cell column-text">
+            <ul *ngFor="let x of showResult.type">
+              <li>{{x}}</li>
+            </ul>
+          </div>
+          <div class="column list-cell column-bars">
+            <ul>
+              <li><img class="icon-bar" src="../assets/images/bar1.png" alt="">{{x}}</li>
+              <li><img class="icon-bar" src="../assets/images/bar2.png" alt="">{{x}}</li>
+              <li><img class="icon-bar" src="../assets/images/bar3.png" alt="">{{x}}</li>
+              <li><img class="icon-bar" src="../assets/images/bar4.png" alt="">{{x}}</li>
+              <li><img class="icon-bar" src="../assets/images/bar5.png" alt="">{{x}}</li>
+              <li><img class="icon-bar" src="../assets/images/bar6.png" alt="">{{x}}</li>
+              <li><img class="icon-bar" src="../assets/images/bar7.png" alt="">{{x}}</li>
+            </ul>
+            <br>
+          </div>
+        </div>
+        <div class="row centered" *ngIf="this.session.isAuth">
+          <button type="button" name="button" class="button-clear" (click)="addToWishlist()"><img class="icon_wishlist" src="../assets/images/wishlist.png" alt=""></button>
+
+        </div>
+    </div>
    </div>
  </div>
 
