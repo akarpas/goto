@@ -147,7 +147,7 @@ function checkFlightsMaxPrice(query, tmpResults, cb ) {
       durationMilliSeconds = (48*60*60*1000);
     break;
   }
-  const API_KEY = "uCpRjLKJEQq9FJID9ZRu2Vs9Hm5mrAVA"; // *APIKEY*
+  const API_KEY = "amadeus"; // *APIKEY*
 
   console.log(`it should enter ${tmpResults.length}`);
 

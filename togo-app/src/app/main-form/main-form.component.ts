@@ -125,7 +125,7 @@ export class MainFormComponent implements OnInit {
   }
 
   getAirport() {
-    const API_AMADEUS = "uCpRjLKJEQq9FJID9ZRu2Vs9Hm5mrAVA"; // *APIKEY*
+    const API_AMADEUS = "amadeus"; // *APIKEY*
     let airport;
     const url = "https://api.sandbox.amadeus.com/v1.2/airports/nearest-relevant?apikey="+API_AMADEUS+"&latitude&latitude=" + Number(this.newSearch.origin_lat) + "&longitude=" + Number(this.newSearch.origin_lng);
     console.log(url);
