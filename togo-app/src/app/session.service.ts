@@ -131,7 +131,27 @@ export class SessionService implements CanActivate {
   }
 
   remove(place, id) {
-    return this.http.delete(`http://localhost:3000/api/users/wishlist/${id}`,place)
-      .map((res) => res.json());
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.put(`http://localhost:3000/api/users/removeplace/${id}`,place, options)
+      .map((res) => res.json())
+      .catch(this.handleError);
+  }
+
+  removeWishlist(place, id) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.put(`http://localhost:3000/api/users/removewishlist/${id}`,place, options)
+      .map((res) => res.json())
+      .catch(this.handleError);
+  }
+
+
+  getDestinations() {
+    return this.http.get(`http://localhost:3000/api/destinations`)
+      .map((res) => res.json())
+      .catch(this.handleError);
   }
 }

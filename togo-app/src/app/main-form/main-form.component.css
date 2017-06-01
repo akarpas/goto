@@ -15,12 +15,19 @@ h3 {
   width: 100%;
 }
 
+
+.error-msg {
+  font-size: 16px;
+  font-weight: bold;
+  color: #9b4dca;
+}
+
 .container-fluid {
   padding: 20px;
   margin: 0 auto;
   width: 67%;
   text-align: center;
-  background-color: rgba(255,255,255,0.95);
+  background-color: rgba(255,255,255,0.9);
   border-radius: 20px;
   box-shadow: 3px 3px 6px rgb(92, 92, 92);
 }

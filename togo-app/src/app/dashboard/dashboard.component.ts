@@ -19,12 +19,13 @@ export class DashboardComponent implements OnInit {
     lng: 0
   }
   userId: ''
+  wishlistEmpty: boolean;
 
   public latitude: number;
   public longitude: number;
   public zoom: number;
   public searchControl: FormControl;
-  public selection: string;
+  public selection: string= 'Select A Pin';
 
   user: any = {};
   place: any = {};
@@ -37,7 +38,8 @@ export class DashboardComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private session: SessionService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -56,6 +58,8 @@ export class DashboardComponent implements OnInit {
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
+
+
 
           // Location details
           var area1;
@@ -99,6 +103,7 @@ export class DashboardComponent implements OnInit {
       });
     });
     this.zoom = 2;
+
     this.route.params.subscribe(params => {
       this.getUserDetails(params['id']);
     });
@@ -113,6 +118,7 @@ export class DashboardComponent implements OnInit {
         console.log("this: ", user);
         console.log(this.user);
       });
+
   };
 
   showTarget(place) {
@@ -127,4 +133,23 @@ export class DashboardComponent implements OnInit {
         this.getUserDetails(this.userId);
       });
   };
+
+  deleteItem(place) {
+    this.session.remove(place,this.userId)
+      .subscribe((place) => {
+        var id = this.session.getUserIdFromLocal();
+        this.getUserDetails(id);
+        this.router.navigate(['/dashboard/',id]);
+      });
+  }
+
+  deleteItemWishlist(place) {
+    this.session.removeWishlist(place,this.userId)
+      .subscribe((place) => {
+        var id = this.session.getUserIdFromLocal();
+        this.getUserDetails(id);
+        this.router.navigate(['/dashboard/',id]);
+      });
+  }
+
 }

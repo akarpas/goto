@@ -26,6 +26,7 @@ export class ResultsComponent implements OnInit {
   userId: '';
   user: any = {};
   place: any = {};
+  beenHere: boolean = false;
 
 
   @ViewChild("search")
@@ -41,6 +42,8 @@ export class ResultsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    var id = this.session.getUserIdFromLocal();
+    this.user = this.getUserDetails(id);
 
     this.results = JSON.parse(this.apiSession.getResultsFromLocalStorage());
 
@@ -75,18 +78,20 @@ export class ResultsComponent implements OnInit {
   }
 
   showDetails(result) {
-    // const APIKEY = "KEY";
-    // var url;
-    // var photoReference;
-    // var tmpResponse;
-    // url = "http://maps.googleapis.com/maps/api/place/textsearch/json?query=" + result.city + "&key="+APIKEY;
-    // tmpResponse = this.getPhotoReference(url).subscribe();
-    // console.log(tmpResponse)
-    // photoReference = tmpResponse.results[0].photos[0].photo_reference;
-    // console.log(photoReference);
-
     this.detailsOn = true;
     this.showResult = result;
+
+
+    var temp = [];
+    this.user.places.forEach(function(place){
+      temp.push(place.city);
+    });
+    console.log("this is temp " + temp)
+    if (this.showResult.city === this.user.city || temp.indexOf(this.showResult.city) !== -1) {
+      this.beenHere = true;
+    } else {
+      this.beenHere = false;
+    }
     console.log(this.showResult);
     console.log("clicked");
   }

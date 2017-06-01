@@ -51,7 +51,7 @@ authRoutes.post('/signup', (req, res, next) => {
       country_loc: country_loc,
       lat: lat,
       lng: lng,
-      places: places
+      // places: places
     });
 
     theUser.save((err, user) => {

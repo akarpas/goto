@@ -1,0 +1,46 @@
+<div class="container-fluid container-bckg">
+  <h3>Awesome Destinations</h3>
+  <div class="row row-style">
+    <div class="column cell">
+      <strong>Name</strong>
+    </div>
+    <div class="column cell">
+      <strong>Type</strong>
+    </div>
+    <div class="column cell">
+      <strong>Climate</strong>
+    </div>
+    <div class="column cell">
+      <strong>Exotic?</strong>
+    </div>
+    <div class="column cell">
+      <strong>Visit Reason</strong>
+    </div>
+    <div class="column cell">
+      <strong>Wishlist</strong>
+    </div>
+
+  </div>
+  <div class="row row-style" *ngFor="let destination of destinations">
+    <div class="column cell">
+      {{destination.city}}, {{destination.country}}
+    </div>
+    <div class="column cell">
+      {{destination.location}}<br>
+    </div>
+    <div class="column cell">
+      {{destination.climate}}
+    </div>
+    <div class="column cell">
+      <div *ngIf="destination.exotic">
+        <img class="exotic-icon" src="../assets/images/exotic.png" alt="">
+      </div>
+    </div>
+    <div class="column cell">
+      {{destination.type[0]}}
+    </div>
+    <div class="column cell">
+      <img class="icon_wishlist" src="../assets/images/wishlist.png" alt=""(click)="addToWishlist(destination)">
+    </div>
+  </div>
+</div>

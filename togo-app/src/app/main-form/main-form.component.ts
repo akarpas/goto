@@ -9,8 +9,6 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Router } from "@angular/router";
 
-
-
 @Component({
   selector: 'app-main-form',
   templateUrl: './main-form.component.html',
@@ -40,6 +38,11 @@ export class MainFormComponent implements OnInit {
   userCountry: string;
   error: string;
   loading: boolean = false;
+  formComplete: boolean = false;
+  today = new Date();
+  afterStartDate: boolean = false;
+  beforeToday: boolean = false;
+
 
   public searchControl: FormControl;
 
@@ -57,14 +60,12 @@ export class MainFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.today = this.newSearch.startDate;
+    console.log("dates " + this.newSearch.startDate + " " + this.newSearch.endDate)
     if (this.session.isAuth) {
       var currentUser = this.session.getUserFromLocal();
       this.newSearch.name = currentUser.name;
-
-      // this.newSearch.location = currentUser.city + ", " + currentUser.country;
-
-      // this.newSearch.country = currentUser.country;
-      console.log(this.userName)
     }
 
     this.searchControl = new FormControl();
@@ -115,13 +116,22 @@ export class MainFormComponent implements OnInit {
   }
 
   submitForm() {
-    this.loading = true;
-    // console.log(this.newSearch);
-    console.log("ORIGIN AIRPORT: " + this.newSearch.origin_airport);
-    this.apiSession.handleQuery(this.newSearch).subscribe(result=>{
-      this.router.navigate(['/results']);
-    });
-
+    //check that all fields are completed
+    if (this.newSearch.country === '' || this.newSearch.city === '' || this.newSearch.location === '' || this.newSearch.people === 0 || this.newSearch.budget === 0 || this.newSearch.duration === 0
+      || this.newSearch.startDate === this.today || this.newSearch.endDate === this.today || this.newSearch.type === '') {
+      this.formComplete = false;
+    } else if (this.newSearch.startDate > this.newSearch.endDate) {
+      this.afterStartDate = true;
+    } else if (this.newSearch.startDate < this.today) {
+      this.beforeToday = true;
+    } else {
+      this.loading = true;
+      // console.log(this.newSearch);
+      console.log("ORIGIN AIRPORT: " + this.newSearch.origin_airport);
+      this.apiSession.handleQuery(this.newSearch).subscribe(result=>{
+        this.router.navigate(['/results']);
+      });
+    }
   }
 
   getAirport() {
