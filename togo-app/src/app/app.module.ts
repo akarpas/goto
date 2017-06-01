@@ -18,6 +18,7 @@ import { SessionService } from "./session.service";
 import { ExternalApisService } from "./external-apis.service";
 import { LoginFormComponent } from './login-form/login-form.component';
 import { DestinationComponent } from './destination/destination.component';
+import { BrowseComponent } from './browse/browse.component';
 
 
 
@@ -27,7 +28,8 @@ const routes: Routes = [
   {path: 'signup', component: SignupFormComponent},
   {path: 'dashboard/:id', component: DashboardComponent, canActivate: [SessionService]},
   {path: 'results', component: ResultsComponent},
-  {path: 'login', component: LoginFormComponent}
+  {path: 'login', component: LoginFormComponent},
+  {path: 'browse', component: BrowseComponent}
 
 ];
 
@@ -42,6 +44,7 @@ const routes: Routes = [
     FooterComponent,
     LoginFormComponent,
     DestinationComponent,
+    BrowseComponent,
   ],
   imports: [
     AgmCoreModule.forRoot({

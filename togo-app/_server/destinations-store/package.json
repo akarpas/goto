@@ -8,6 +8,7 @@
     "start-dev": "nodemon ./bin/www"
   },
   "dependencies": {
+    "@google/maps": "^0.3.1",
     "async": "^2.4.1",
     "bcrypt": "^1.0.2",
     "body-parser": "~1.17.1",

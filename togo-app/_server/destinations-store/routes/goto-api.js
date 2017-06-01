@@ -116,5 +116,52 @@ router.put('/users/wishlist/:user_id', (req, res, next) => {
     });
 });
 
+router.put('/users/removeplace/:user_id', (req, res) => {
+
+  User.findById(req.params.user_id, (err,user)=>{
+      if (err) {
+        res.status(500).json({message: err});
+      } else {
+        var index;
+        index = user.places.indexOf(req.body.place);
+        user.places.splice(index, 1);
+        const newUser = user;
+        User.findByIdAndUpdate(req.params.user_id, newUser, (err) => {
+          if (err) {
+            res.json(err);
+            return;
+          }
+
+          res.json({
+            message: 'User updated successfully'
+          });
+        });
+			}
+    });
+});
+
+router.put('/users/removewishlist/:user_id', (req, res) => {
+
+  User.findById(req.params.user_id, (err,user)=>{
+      if (err) {
+        res.status(500).json({message: err});
+      } else {
+        var index;
+        index = user.wishlist.indexOf(req.body.place);
+        user.wishlist.splice(index, 1);
+        const newUser = user;
+        User.findByIdAndUpdate(req.params.user_id, newUser, (err) => {
+          if (err) {
+            res.json(err);
+            return;
+          }
+
+          res.json({
+            message: 'User updated successfully'
+          });
+        });
+			}
+    });
+});
 
 module.exports = router;

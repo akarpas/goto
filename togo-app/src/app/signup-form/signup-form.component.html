@@ -32,17 +32,22 @@
         <div class="row">
           <div class="column">
             <label for="passField">Password</label>
-            <input type="password" required placeholder="a secure password" id="passField" name="password" [(ngModel)]="signupInfo.password">
+            <input type="password" required placeholder="a secure password" minlength="6" id="passField" name="password" [(ngModel)]="signupInfo.password">
           </div>
           <div class="column">
             <label for="passConfirmField">Confirm Password</label>
-            <input type="password" required placeholder="confirm your password" id="passConfirmField" name="passwordConfirm" [(ngModel)]="passwordConfirm">
+            <input type="password" required placeholder="confirm your password" minlength="6" id="passConfirmField" name="passwordConfirm" [(ngModel)]="passwordConfirm">
           </div>
         </div>
-
+        <div class="column password-match" *ngIf="!passwordMatch">
+          The passwords you entered do not agree, please renter.
+        </div>
       <br>
       <input class="button-primary" type="submit" value="Go!" (click)="signup()">
     </fieldset>
-
   </form>
+  <div class="row">
+
+
+  </div>
 </div>

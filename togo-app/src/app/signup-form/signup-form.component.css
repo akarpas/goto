@@ -16,6 +16,11 @@ h3 {
 
 }
 
+.password-match {
+  color: red;
+  font-weight: bold;
+}
+
 .container-fluid {
   padding: 20px;
   margin: 0 auto;

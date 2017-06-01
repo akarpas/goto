@@ -9,6 +9,10 @@
   border: 1px solid lightgray;
 }
 
+.home-icon {
+  height: 25px;
+}
+
 .map-container {
   border-radius: 25px;
   margin-left: 20px;
@@ -71,8 +75,10 @@ h3 {
 .cell-list {
   border-radius: 20px;
   border: 1px solid lightgray;
-  min-height: 100%;
 
+  min-height: 300px;
+  max-height: 300px;
+  overflow-y: scroll;
 }
 
 .addcity {
@@ -149,7 +155,7 @@ label {
 }
 
 .delete-icon {
-  height: 18px;
+  height: 25px;
 }
 
 

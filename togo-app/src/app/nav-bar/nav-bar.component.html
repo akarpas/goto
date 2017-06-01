@@ -1,6 +1,14 @@
 <div class="menu-bar">
   <div class="menu-left">
-    <strong><a [routerLink]="['home']">GoTo</a></strong>
+    <div class="row">
+      <div class="column search">
+        <strong><a [routerLink]="['home']">Search</a></strong>
+      </div>
+      <div class="column browse">
+        <strong><a [routerLink]="['browse']">Browse</a></strong>
+      </div>
+    </div>
+
   </div>
   <div class="menu-right">
     <div class="row">

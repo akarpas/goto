@@ -15,7 +15,7 @@ queryRoutes.post('/search',(req, res, next)=>{
   let query = req.body;
 
   let resultsIndex = 0;
-  let tmpResults = [];
+  let resultsFirstFilter = [];
   let finalResults;
 
   Destination.find((err,destinationsList)=>{
@@ -26,7 +26,7 @@ queryRoutes.post('/search',(req, res, next)=>{
     // Loop through destinations and check first type for match
     destinationsList.forEach(function(destination) {
       if (destination.type[0] === req.body.type) {
-        tmpResults.push(destination);
+        resultsFirstFilter.push(destination);
         resultsIndex++;
       }
     });
@@ -35,7 +35,7 @@ queryRoutes.post('/search',(req, res, next)=>{
     if (resultsIndex <= 20) {
       destinationsList.forEach(function(destination) {
         if (destination.type[1] === req.body.type) {
-          tmpResults.push(destination);
+          resultsFirstFilter.push(destination);
           resultsIndex++;
         }
       });
@@ -45,7 +45,7 @@ queryRoutes.post('/search',(req, res, next)=>{
     if (resultsIndex <= 20) {
       destinationsList.forEach(function(destination) {
         if (destination.type[2] === req.body.type) {
-          tmpResults.push(destination);
+          resultsFirstFilter.push(destination);
           resultsIndex++;
         }
       });
@@ -53,23 +53,23 @@ queryRoutes.post('/search',(req, res, next)=>{
     if (resultsIndex <= 20) {
       destinationsList.forEach(function(destination) {
         if (destination.type[3] === req.body.type) {
-          tmpResults.push(destination);
+          resultsFirstFilter.push(destination);
           resultsIndex++;
         }
       });
     }
 
     console.log("this is the resultsIndex: " + resultsIndex);
-    console.log(tmpResults.length);
-    if (tmpResults.length > 20) {
-      tmpResults.splice(20, tmpResults.length-1);
+    console.log(resultsFirstFilter.length);
+    if (resultsFirstFilter.length > 20) {
+      resultsFirstFilter.splice(20, resultsFirstFilter.length-1);
     }
 
-    tmpResults.forEach(function(result, index) {
+    resultsFirstFilter.forEach(function(result, index) {
       console.log("this is choice " + index + ": " + result.city);
     });
 
-    checkFlightsMaxPrice(query, tmpResults, (finalResults)=>{
+    checkFlightsMaxPrice(query, resultsFirstFilter, (finalResults)=>{
       console.log("finalResults");
       res.json(JSON.stringify(finalResults));
     });
@@ -79,12 +79,12 @@ queryRoutes.post('/search',(req, res, next)=>{
 
 });
 
-function checkFlightsMaxPrice(query, tmpResults, cb ) {
+function checkFlightsMaxPrice(query, resultsFirstFilter, cb ) {
 
-  var tmpResults2 = []; // This will include the filtered out result from
-  // tmpResults, where the destinations are filtered by MAXPRICE
-  var tmpResults3 = []; // This will include the filtered out result from
-  // tmpResults2, where the destinations are filtered by Duration
+  var resultsSecondFilter = []; // This will include the filtered out result from
+  // resultsFirstFilter, where the destinations are filtered by MAXPRICE
+  var resultsThirdFilter = []; // This will include the filtered out result from
+  // resultsSecondFilter, where the destinations are filtered by Duration
   var destinationsMatched = []; // This will hold all the destinations returned
   // by Amadeus for the Max Price criteria.
   var searchResults = []; // array to hold all the search results received from
@@ -149,9 +149,9 @@ function checkFlightsMaxPrice(query, tmpResults, cb ) {
   }
   const API_KEY = "amadeus"; // *APIKEY*
 
-  console.log(`it should enter ${tmpResults.length}`);
+  console.log(`it should enter ${resultsFirstFilter.length}`);
 
-  async.each(tmpResults, (item, callback)=>{
+  async.each(resultsFirstFilter, (item, callback)=>{
 
     const destination = item.airports[0];
     // console.log("Airport " + x + " " + destination);
@@ -181,20 +181,20 @@ function checkFlightsMaxPrice(query, tmpResults, cb ) {
     if( err ) {
       console.log(`error!!!!`, err);
     } else {
-      tmpResults.forEach(function(item){
+      resultsFirstFilter.forEach(function(item){
         if (destinationsMatched.indexOf(item.airports[0]) !== -1) {
-          tmpResults2.push(item);
+          resultsSecondFilter.push(item);
         }
       });
-      cb(checkFlightsDuration(query, tmpResults2, searchResults, durationHours, durationMilliSeconds));
+      cb(checkFlightsDuration(query, resultsSecondFilter, searchResults, durationHours, durationMilliSeconds));
     }
   });
 
 }
 
-function checkFlightsDuration(query, tmpResults2, searchResults, durationHours, durationMilliSeconds) {
+function checkFlightsDuration(query, resultsSecondFilter, searchResults, durationHours, durationMilliSeconds) {
 
-  var tmpResults3 = [];
+  var resultsThirdFilter = [];
   var destinationsMatched = []; // This will hold all the filtered destinations
   // for the Duration criteria.
   console.log("this is the duration Hours passed from function: " + durationHours);
@@ -227,18 +227,18 @@ function checkFlightsDuration(query, tmpResults2, searchResults, durationHours, 
 
 
   });
-  tmpResults2.forEach(function(item){
+  resultsSecondFilter.forEach(function(item){
     if (destinationsMatched.indexOf(item.airports[0]) !== -1) {
-      tmpResults3.push(item);
+      resultsThirdFilter.push(item);
     }
   });
   console.log("these are the FINAL matched destinations: " + destinationsMatched);
-  tmpResults3.forEach(function(item){
+  resultsThirdFilter.forEach(function(item){
     console.log(item.city);
   });
 
 
-  return tmpResults3;
+  return resultsThirdFilter;
 
 }
 

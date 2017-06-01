@@ -3,7 +3,7 @@
 const mongoose = require("mongoose");
 const Destination = require('../models/destination');
 const https = require('https');
-const request = require('request');
+const request = require('request-promise');
 
 mongoose.connect("mongodb://localhost/goto-database");
 
@@ -1511,7 +1511,7 @@ const data = [
   },
   {
     "ID": 80,
-    "City": "Zurich",
+    "City": "Zürich",
     "Country": "Switzerland",
     "Exotic": "No",
     "Located": "Rural",
@@ -2090,8 +2090,7 @@ const data = [
 
 
 data.forEach((place)=> {
-  setTimeout(function(){
-  console.log(place);
+  // console.log(place);
   var id = place.ID;
   var city = place.City;
   var country = place.Country;
@@ -2137,8 +2136,11 @@ data.forEach((place)=> {
     if (err) {throw err;}
     mongoose.connection.close();
   });
-}, 1500);
+
+
 });
+
+
 
 // function getCoordinates(city, country, tmpCoordinates, callback) {
 

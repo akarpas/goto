@@ -16,8 +16,11 @@
      <br>
     <div class="column" *ngIf="detailsOn">
       <strong>{{showResult.city}}, {{showResult.country}} </strong> <br>
-      Location: {{showResult.location}}<br>
-        Temperature: {{showResult.climate}}<br><br>
+      <div *ngIf="beenHere">
+        <p class="been-here-msg">You have been Here!</p>
+      </div>
+      <strong>Location: </strong> {{showResult.location}}<br>
+        <strong>Temperature:</strong> {{showResult.climate}}<br><br>
         <div class="row ratings">
           <div class="column list-cell column-text">
             <ul *ngFor="let x of showResult.type">
